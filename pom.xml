@@ -14,8 +14,43 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+<groupId>org.sonarsource.scanner.maven</groupId>
+<artifactId>sonar-maven-plugin</artifactId>
+<version>3.2</version>
+</dependency>
   </dependencies>
+
   <build>
-    <finalName>web-application</finalName>
+  <finalName>demo-web-application</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+<encoding>${project.reporting.outputEncoding}</encoding>
+                </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
+    </plugins>
   </build>
+
+<profiles>
+<profile>
+<id>sonar</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<!-- Optional URL to server. Default value is http://localhost:9000 -->
+<sonar.host.url>
+http://10.155.19.5:9000
+</sonar.host.url>
+</properties>
+</profile>
+</profiles>
 </project>
