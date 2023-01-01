@@ -5,8 +5,6 @@ metadata:
   labels:
     app: web-app
 spec:
-  type: NodePort
-  ports:
-  - port: 32768
+  type: LoadBalancer
   selector:
     app: web-app
