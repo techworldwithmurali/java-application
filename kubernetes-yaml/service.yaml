@@ -5,6 +5,9 @@ metadata:
   labels:
     app: web-app
 spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
   type: LoadBalancer
   selector:
     app: web-app
