@@ -1,2 +1,18 @@
-# Java-application
-This Repository contains Java application with different branches.
+<b>Manually - Build and Push to Jfrog Artifactory</b>
+
+<h2>Prerequisites:</h2>
+  Git is installed
+  maven is installed
+  Jfrog Artifactory is installed
+
+Step 1: Clone the repository
+github url: https://github.com/techworldwithmurali/nodejs-application.git
+          branch name:
+
+Step 2: Update the jfrog Artifactory details in pom.xml
+Step 3: Update the jfrog credentials in settings.xml
+Step 4: Run the below command to push the artifacts to Jfrog Artifactory.
+mvn deploy
+Step 5: Verify whether artifact(war) is published or not in Jfrog Artifactory
+
+Congratulations. You have successfully Published the artifact(war) file in Jfrog repository
