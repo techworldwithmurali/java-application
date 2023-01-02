@@ -54,6 +54,7 @@ mvn deploy
 <p align="center">
   <img width="400" src="" alt="Jfrog Artifactory output"/>
 </p>
+
 ### Step 6 : Deploy the war file in Tomcat.
 ### Step 7 : Verify whether application is running or not
 
