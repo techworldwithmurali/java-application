@@ -1,5 +1,5 @@
 <b>Manually - Build and Push to Jfrog Artifactory</b>
-
+* [Block Elements](#block-elements)
 <h2>Prerequisites:</h2>
   <b>1. Git is installed</b><br>
   <b>2. Maven is installed</b><br>
