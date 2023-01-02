@@ -10,6 +10,18 @@
           branch name:</pre>
 
 <h6>Step 2: Update the jfrog Artifactory details in pom.xml</h6>
+  <pre>
+  <distributionManagement>
+      <snapshotRepository>
+        <id>jfrog-snapshots</id>
+        <url>http://your-host:8081/repository/maven-snapshots/</url>
+      </snapshotRepository>
+      <repository>
+        <id>jfrog-releases</id>
+        <url>http://your-host:8081/repository/maven-releases/</url>
+      </repository>
+    </distributionManagement>
+  </pre>
 <h6>Step 3: Update the jfrog credentials in settings.xml</h6>
 <h6>Step 4: Run the below command to push the artifacts to Jfrog Artifactory.</h6>
 mvn deploy
