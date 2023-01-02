@@ -5,14 +5,14 @@
   <b>2. Maven is installed</b><br>
   <b>3. Jfrog Artifactory is installed<b><br>
 
-  <h1>Step 1: Clone the repository</h1>
+  <h6>Step 1: Clone the repository</h6>
 github url: https://github.com/techworldwithmurali/nodejs-application.git
           branch name:
 
-Step 2: Update the jfrog Artifactory details in pom.xml
-Step 3: Update the jfrog credentials in settings.xml
-Step 4: Run the below command to push the artifacts to Jfrog Artifactory.
+<h6>Step 2: Update the jfrog Artifactory details in pom.xml</h6>
+<h6>Step 3: Update the jfrog credentials in settings.xml</h6>
+<h6>Step 4: Run the below command to push the artifacts to Jfrog Artifactory.</h6>
 mvn deploy
-Step 5: Verify whether artifact(war) is published or not in Jfrog Artifactory
+<h6>Step 5: Verify whether artifact(war) is published or not in Jfrog Artifactory</h6>
 
 Congratulations. You have successfully Published the artifact(war) file in Jfrog repository
