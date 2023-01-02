@@ -6,7 +6,8 @@ metadata:
     app: web-app
 spec:
   type: NodePort
-  ports:
-  - port: 32768
+  ports:  
+    port: 8080
+    targetPort: 8080
   selector:
     app: web-app
