@@ -13,8 +13,8 @@
 ### Step 1: Clone the repository
   
 ```xml
-  github url: https://github.com/techworldwithmurali/nodejs-application.git
-  branch name:
+  **github url:** https://github.com/techworldwithmurali/java-application.git
+ ** branch name:** build-and-push-to-jfrog
 ```
 ### Step 2: Update the jfrog Artifactory details in pom.xml
 
