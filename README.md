@@ -1,9 +1,9 @@
 <b>Manually - Build and Push to Jfrog Artifactory</b>
 
 <h2>Prerequisites:</h2>
-  <b>Git is installed<b>
-  <b>maven is installed<b>
-  <b>Jfrog Artifactory is installed<b>
+  <b>Git is installed</b><br>
+  <b>maven is installed</b><br>
+  <b>Jfrog Artifactory is installed<b><br>
 
 Step 1: Clone the repository
 github url: https://github.com/techworldwithmurali/nodejs-application.git
