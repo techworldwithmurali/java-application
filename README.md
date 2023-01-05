@@ -9,7 +9,7 @@
 + Git is installed
 + Maven is installed
 + Docker is installed
-+ Docker repository is created
++ DockerHub repository is created
 + AWS EKS is created
 
 ### Step 1: Clone the repository
