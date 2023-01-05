@@ -17,7 +17,7 @@
   
 ```xml
   github url: https://github.com/techworldwithmurali/java-application.git
- branch name: deploy-to-eks-helmchart-ecr
+  branch name: deploy-to-eks-helmchart-ecr
 ```
 ### Step 2: build the code
 ```xml
