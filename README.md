@@ -16,7 +16,10 @@
   github url: https://github.com/techworldwithmurali/java-application.git
  branch name: build-and-push-to-jfrog
 ```
-### Step 2: Update the jfrog Artifactory details in pom.xml
+
+### Step 2: Create the user in Jfrog
+### Step 3: Create the repository in Jfrog
+### Step 4: Update the jfrog Artifactory details in pom.xml
 
 ```xml
  <distributionManagement>
@@ -30,7 +33,7 @@
       </repository>
     </distributionManagement>
 ```
-### Step 3: Update the jfrog credentials in settings.xml
+### Step 5: Update the jfrog credentials in settings.xml
 ```xml
 <servers>
     <server>
@@ -45,11 +48,11 @@
     </server>
   </servers>
 ```
-### Step 4: Run the below command to push the artifacts to Jfrog Artifactory.
+### Step 6: Run the below command to push the artifacts to Jfrog Artifactory.
 ```sh
 mvn deploy
 ```
-### Step 5: Verify whether artifact(war) is published or not in Jfrog Artifactory.
+### Step 7: Verify whether artifact(war) is published or not in Jfrog Artifactory.
 <p align="center">
   <img width="400" src="" alt="Jfrog Artifactory output"/>
 </p>
