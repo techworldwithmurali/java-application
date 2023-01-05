@@ -18,7 +18,7 @@
 ```
 
 ### Step 2: Create the user in Jfrog
-### Step 3: Create the repository in Jfrog
+### Step 3: Create the maven repository in Jfrog
 ### Step 4: Update the jfrog Artifactory details in pom.xml
 
 ```xml
@@ -38,13 +38,13 @@
 <servers>
     <server>
       <id>jfrog-snapshots</id>
-      <username>admin</username>
-      <password>admin123</password>
+      <username>moole</username>
+      <password>moole2580</password>
     </server>
     <server>
       <id>jfrog-releases</id>
-      <username>admin</username>
-      <password>admin123</password>
+      <username>moole</username>
+      <password>moole2580</password>
     </server>
   </servers>
 ```
