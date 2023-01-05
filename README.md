@@ -17,7 +17,9 @@
   github url: https://github.com/techworldwithmurali/java-application.git
  branch name: build-and-push-to-jfrog-deploy-tomcat
 ```
-### Step 2: Update the jfrog Artifactory details in pom.xml
+### Step 2: Create the user in Jfrog
+### Step 3: Create the maven repository in Jfrog
+### Step 4: Update the jfrog Artifactory details in pom.xml
 
 ```xml
  <distributionManagement>
@@ -31,31 +33,31 @@
       </repository>
     </distributionManagement>
 ```
-### Step 3: Update the jfrog credentials in settings.xml
+### Step 5: Update the jfrog credentials in settings.xml
 ```xml
 <servers>
     <server>
       <id>jfrog-snapshots</id>
-      <username>admin</username>
-      <password>admin123</password>
+      <username>moole</username>
+      <password>moole2580</password>
     </server>
     <server>
       <id>jfrog-releases</id>
-      <username>admin</username>
-      <password>admin123</password>
+      <username>moole</username>
+      <password>moole2580</password>
     </server>
   </servers>
 ```
-### Step 4: Run the below command to push the artifacts to Jfrog Artifactory.
+### Step 6: Run the below command to push the artifacts to Jfrog Artifactory.
 ```sh
 mvn deploy
 ```
-### Step 5: Verify whether artifact(war) is published or not in Jfrog Artifactory.
+### Step 7: Verify whether artifact(war) is published or not in Jfrog Artifactory.
 <p align="center">
   <img width="400" src="" alt="Jfrog Artifactory output"/>
 </p>
 
-### Step 6 : Deploy the war file in Tomcat.
-### Step 7 : Verify whether application is running or not
+### Step 8 : Deploy the war file in Tomcat.
+### Step 10 : Verify whether application is up and running or not
 
 #### Congratulations. You have successfully deployed the artifact(war) file in Tomcat.
