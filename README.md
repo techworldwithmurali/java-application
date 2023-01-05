@@ -1,7 +1,7 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for manually build and generate the static code analysis report.</br>
++ <b>Description:</b> Below are the steps outlined for manually build and generate the static code analysis report using SonarQube.</br>
 
 ## Manually - Build and generate the static code analysis report using SonarQube.
 
@@ -41,13 +41,13 @@ http://10.155.19.5:9000
 </profiles>
 
 ```
-### Step 3: Verify whether SonarQube report is generated or not in SonarQube Dashboard..
+### Step 3: Run below command to generate the static code analysis report.
 ```sh
 mvn sonar:sonar -Dsonar.sonar.host.url=http://13.233.6.6:9000 -Dsonar.login=a59971a4cf3ee650a17c928570ce7fb268c36a90
 ```
 ### Step 4: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
 <p align="center">
-  <img width="400" src="https://user-images.githubusercontent.com/115227391/210243233-12497d72-52e7-4e7f-bb9d-eef7d6fadf99.png" alt="cli output"/>
+  <img width="400" src="" alt="cli output"/>
 </p>
 
 
