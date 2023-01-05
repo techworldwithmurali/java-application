@@ -16,8 +16,8 @@
     github url: https://github.com/techworldwithmurali/java-application.git
     branch name: static-code-analysis
 ```
-
-### Step 2: Update the SonarQube details in pom.xml
+### Step 2: Create the SonarQube token
+### Step 3: Update the SonarQube details in pom.xml
 ```xml
 <dependency>
 <groupId>org.sonarsource.scanner.maven</groupId>
@@ -41,11 +41,11 @@ http://10.155.19.5:9000
 </profiles>
 
 ```
-### Step 3: Run below command to generate the static code analysis report.
+### Step 4: Run below command to generate the static code analysis report.
 ```sh
 mvn sonar:sonar -Dsonar.sonar.host.url=http://13.233.6.6:9000 -Dsonar.login=a59971a4cf3ee650a17c928570ce7fb268c36a90
 ```
-### Step 4: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
+### Step 5: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
 <p align="center">
   <img width="400" src="" alt="cli output"/>
 </p>
