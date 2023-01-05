@@ -9,7 +9,7 @@
 + Git is installed
 + Maven is installed
 + Docker is installed
-+ DockerHub Account is created
++ DockerHub repository is created
 + AWS EKS is created
 + Helm3 is installed
 
