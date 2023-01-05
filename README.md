@@ -9,7 +9,7 @@
 + Git is installed
 + Maven is installed
 + Docker is installed
-+ DockerHub Account is created
++ DockerHub repository is created
 
 
 ### Step 1: Clone the repository
