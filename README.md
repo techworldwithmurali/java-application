@@ -15,7 +15,7 @@
   
 ```xml
   github url: https://github.com/techworldwithmurali/java-application.git
- branch name: build-and-push-to-jfrog
+ branch name: build-and-push-to-jfrog-deploy-tomcat
 ```
 ### Step 2: Update the jfrog Artifactory details in pom.xml
 
