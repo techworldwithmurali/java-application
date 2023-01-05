@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for manually building and pushing artifacts(war) to Jfrog Artifactory</br>
++ <b>Description:</b> Below are the steps outlined for manually Dockerizing and Pushing to AWS ECR.</br>
 
-## Manually - Build and Push to Jfrog Artifactory
+## Manually - Dockerizing and Pushing to AWS ECR
 
 ### Prerequisites:
 + Git is installed
@@ -15,7 +15,7 @@
   
 ```xml
   github url: https://github.com/techworldwithmurali/java-application.git
- branch name: build-and-push-to-jfrog
+ branch name: pushing-docker-image-to-ecr
 ```
 ### Step 2: build the code
 ```xml
@@ -29,4 +29,4 @@ mvn package
 ### Step 8: Verify whether docker image is pushed or not in AWS ECR
 
 
-#### Congratulations. You have successfully Pushed the docker image to DockerHub.
+#### Congratulations. You have successfully Pushed the docker image to AWS ECR.
