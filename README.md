@@ -3,19 +3,19 @@
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
 + <b>Description:</b> Below are the steps outlined for manually Deploy to EKS fetching image from DockerHub.</br>
 
-## Manually - Build and Push to Jfrog Artifactory
+## Manually - Deploy to EKS fetching image from DockerHub.
 
 ### Prerequisites:
 + Git is installed
 + Maven is installed
 + Docker is installed
-+ DockerHub Account is created
++ Docker repository is created
 + AWS EKS is created
 
 ### Step 1: Clone the repository
   
 ```xml
-  github url: https://github.com/techworldwithmurali/java-application.git
+ github url: https://github.com/techworldwithmurali/java-application.git
  branch name: deploy-to-eks-dockerhub
 ```
 ### Step 2: build the code
