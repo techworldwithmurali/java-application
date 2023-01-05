@@ -16,13 +16,13 @@
   
 ```xml
   github url: https://github.com/techworldwithmurali/java-application.git
- branch name: deploy-to-eks-jfrog
+  branch name: deploy-to-eks-jfrog
 ```
 ### Step 2: build the code
 ```xml
 mvn package
 ```
-### Step 3: Create the repository in Jfrog
+### Step 3: Create the docker repository in Jfrog
 ### Step 4: Write the Dockerfile
 ### Step 5: Build and tag the Docker image
 ### Step 6: Login to Jfrog in local
