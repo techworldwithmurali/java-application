@@ -50,10 +50,6 @@
 mvn deploy
 ```
 ### Step 7: Verify whether artifact(war) is published or not in Jfrog Artifactory.
-<- <p align="center">
-  <img width="400" src="" alt="Jfrog Artifactory output"/>
-</p>
-->
 
 
 #### Congratulations. You have successfully published the artifact(war) file in Jfrog repository.
