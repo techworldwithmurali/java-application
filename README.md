@@ -11,10 +11,8 @@
 + SonarQube is installed
 
 ### Step 1: Clone the repository
-  
-```xml
-    github url: https://github.com/techworldwithmurali/java-application.git
-    branch name: static-code-analysis
+  ```xml
+  git clone https://github.com/techworldwithmurali/java-application.git
 ```
 ### Step 2: Create the SonarQube token
 ### Step 3: Update the SonarQube details in pom.xml
@@ -46,9 +44,5 @@ http://10.155.19.5:9000
 mvn sonar:sonar -Dsonar.sonar.host.url=http://13.233.6.6:9000 -Dsonar.login=a59971a4cf3ee650a17c928570ce7fb268c36a90
 ```
 ### Step 5: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
-<p align="center">
-  <img width="400" src="" alt="cli output"/>
-</p>
-
 
 #### Congratulations. You have successfully Published the static code analysis report in SonarQube..
