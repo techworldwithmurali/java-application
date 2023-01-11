@@ -22,11 +22,11 @@
  <distributionManagement>
       <snapshotRepository>
         <id>jfrog-snapshots</id>
-        <url>http://your-host:8081/repository/maven-snapshots/</url>
+        <url>https://devopsbymurali.jfrog.io/artifactory/web-application/</url>
       </snapshotRepository>
       <repository>
         <id>jfrog-releases</id>
-        <url>http://your-host:8081/repository/maven-releases/</url>
+        <url>https://devopsbymurali.jfrog.io/artifactory/web-application/</url>
       </repository>
     </distributionManagement>
 ```
