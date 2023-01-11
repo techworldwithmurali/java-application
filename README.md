@@ -16,7 +16,13 @@
   git clone https://github.com/techworldwithmurali/java-application.git
 ```
 ### Step 2: Create the user in Jfrog
+```xml
+User Name: moole
+```
 ### Step 3: Create the maven repository in Jfrog
+```xml
+Repository Name: web-application
+```
 ### Step 4: Update the jfrog Artifactory details in pom.xml
 ```xml
  <distributionManagement>
