@@ -9,18 +9,15 @@
 + Git is installed
 + Maven is installed
 + Jfrog Artifactory is installed
++ Create maven repository in Jfrog
 
 ### Step 1: Clone the repository
-  
-```xml
-  github url: https://github.com/techworldwithmurali/java-application.git
- branch name: build-and-push-to-jfrog
+  ```xml
+  git clone https://github.com/techworldwithmurali/java-application.git
 ```
-
 ### Step 2: Create the user in Jfrog
 ### Step 3: Create the maven repository in Jfrog
 ### Step 4: Update the jfrog Artifactory details in pom.xml
-
 ```xml
  <distributionManagement>
       <snapshotRepository>
@@ -53,9 +50,10 @@
 mvn deploy
 ```
 ### Step 7: Verify whether artifact(war) is published or not in Jfrog Artifactory.
-<p align="center">
+<- <p align="center">
   <img width="400" src="" alt="Jfrog Artifactory output"/>
 </p>
+->
 
 
 #### Congratulations. You have successfully published the artifact(war) file in Jfrog repository.
