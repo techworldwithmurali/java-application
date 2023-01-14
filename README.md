@@ -104,13 +104,13 @@ kubectl apply -f .
 ```
 kubectl get pods -A
 ```
-### Step 14: Create the secret file for Dockerhub
+### Step 14: Create a secret file for Dockerhub credenatils
 ```xml
-kubectl create secret docker-registry regcred --docker-server=https://hub.docker.com/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
+kubectl create secret docker-registry dockerhubcred --docker-server=https://hub.docker.com --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
 ```
 ```xml
   imagePullSecrets:
-  - name: regcred
+  - name: dockerhubcred
 
 ```
 ### Step 15: Access nodejs application through NodePort.
