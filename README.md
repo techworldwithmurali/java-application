@@ -49,9 +49,55 @@ docker push mmreddy424/web-application:latest
 ```
 ### Step 8: Verify whether docker image is pushed or not in DockerHub
 ### Step 9 : Write the Kubernetes Deployment and Service manifest files.
+```xml
+
+apiVersion: apps/v1app
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-application
+        image: web-app:1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  type: NodePort
+  ports:  
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: web-app
+```
 ### Step 10: Update the Dockerhub image in deployment.yaml
 ### Step 11: Connect to the AWS EKS Cluster
 ### Step 12: Apply the Kubernetes manifest files
+### Step 13: Create the secret file for Dockerhub
+```xml
+kubectl create secret docker-registry regcred --docker-server=https://hub.docker.com/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
+
+  imagePullSecrets:
+  - name: regcred
+
+```
 ### Step 13: Access nodejs application through NodePort.
 
 
