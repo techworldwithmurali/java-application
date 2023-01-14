@@ -93,7 +93,8 @@ spec:
 ### Step 13: Create the secret file for Dockerhub
 ```xml
 kubectl create secret docker-registry regcred --docker-server=https://hub.docker.com/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
-
+```
+```xml
   imagePullSecrets:
   - name: regcred
 
