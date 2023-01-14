@@ -22,7 +22,18 @@
 mvn package
 ```
 ### Step 3: Create the docker repository in Jfrog Artifactory
+```xml
+Repository Name: web-application
+```
 ### Step 4: Write the Dockerfile
+```xml
+FROM tomcat:9
+RUN apt update
+WORKDIR /usr/local/tomcat
+ADD target/*.war webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+```
 ### Step 5: Build and tag the Docker image
 ### Step 6: Login to Jfrog Artifactory in local
 ### Step 7: Push the docker image to Jfrog Artifactory
