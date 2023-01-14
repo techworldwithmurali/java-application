@@ -22,6 +22,9 @@
 mvn package
 ```
 ### Step 3: Create the repository in DockerHub
+```xml
+Repository Name: web-application
+```
 ### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
