@@ -21,7 +21,13 @@
 ```xml
 mvn package
 ```
-### Step 3: Create the docker repository in Jfrog Artifactory
+### Step 3:
+Step 3.1: Create the user in Jfrog
+```xml
+UserName: moole
+Password: Techworld@2580
+```
+Step 3.2: Create the docker repository in Jfrog Artifactory
 ```xml
 Repository Name: web-application
 ```
@@ -34,9 +40,22 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 5: Build and tag the Docker image
+
+### Step 5: Build the Docker image
+```xml
+docker build . --tag web-application:latest
+```
 ### Step 6: Login to Jfrog Artifactory in local
+```xml
+docker login -umoole devopsbymurali.jfrog.io
+```
 ### Step 7: Push the docker image to Jfrog Artifactory
+```xml
+docker tag web-application:latest devopsbymurali.jfrog.io/web-application/web-application:latest
+
+docker push devopsbymurali.jfrog.io/web-application/web-application:latest
+```
+
 ### Step 8: Verify whether docker image is pushed or not in Jfrog Artifactory.
 
 
