@@ -49,6 +49,7 @@ docker push mmreddy424/web-application:latest
 ```
 ### Step 8: Verify whether docker image is pushed or not in DockerHub
 ### Step 9 : Write the Kubernetes Deployment and Service manifest files.
+##### deployment.yaml
 ```xml
 
 apiVersion: apps/v1app
@@ -72,7 +73,10 @@ spec:
         image: web-app:1
         ports:
         - containerPort: 8080
----
+```
+##### service.yaml
+```xml
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -89,8 +93,18 @@ spec:
 ```
 ### Step 10: Update the Dockerhub image in deployment.yaml
 ### Step 11: Connect to the AWS EKS Cluster
+```xml
+aws eks update-kubeconfig --name dev-cluster --region us-east-1
+````
 ### Step 12: Apply the Kubernetes manifest files
-### Step 13: Create the secret file for Dockerhub
+```
+kubectl apply -f .
+```
+### Step 13: Verify wether pods are running or not
+```
+kubectl get pods -A
+```
+### Step 14: Create the secret file for Dockerhub
 ```xml
 kubectl create secret docker-registry regcred --docker-server=https://hub.docker.com/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
 ```
@@ -99,7 +113,10 @@ kubectl create secret docker-registry regcred --docker-server=https://hub.docker
   - name: regcred
 
 ```
-### Step 13: Access nodejs application through NodePort.
+### Step 15: Access nodejs application through NodePort.
+```
+http://Node-IP:port/web-application
+```
 
 
 #### Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS).
