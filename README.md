@@ -43,17 +43,17 @@ CMD ["catalina.sh", "run"]
 
 ### Step 5: Build the Docker image
 ```xml
-docker build . --tag web-application:latest
+docker build . --tag web-app:latest
 ```
 ### Step 6: Login to Jfrog Artifactory in local
 ```xml
 docker login -umoole devopsbymurali.jfrog.io
 ```
-### Step 7: Push the docker image to Jfrog Artifactory
+### Step 7: tag and push the docker image to Jfrog Artifactory
 ```xml
-docker tag web-application:latest devopsbymurali.jfrog.io/web-application/web-application:latest
+docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
 
-docker push devopsbymurali.jfrog.io/web-application/web-application:latest
+docker push devopsbymurali.jfrog.io/web-application/web-app:latest
 ```
 
 ### Step 8: Verify whether docker image is pushed or not in Jfrog Artifactory.
