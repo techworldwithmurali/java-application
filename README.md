@@ -11,6 +11,7 @@
 + Docker is installed
 + DockerHub repository is created
 + AWS EKS is created
++ IAM User is created
 
 ### Step 1: Clone the repository
   
@@ -92,19 +93,22 @@ spec:
     app: web-app
 ```
 ### Step 10: Update the Dockerhub image in deployment.yaml
-### Step 11: Connect to the AWS EKS Cluster
+Step 11: Configure  to the AWS CLI using Access key ID & Secret access key
+```aws configure
+```
+### Step 12: Connect to the AWS EKS Cluster
 ```xml
 aws eks update-kubeconfig --name dev-cluster --region us-east-1
 ````
-### Step 12: Apply the Kubernetes manifest files
+### Step 13: Apply the Kubernetes manifest files
 ```
 kubectl apply -f .
 ```
-### Step 13: Verify wether pods are running or not
+### Step 14: Verify wether pods are running or not
 ```
 kubectl get pods -A
 ```
-### Step 14: Create a secret file for Dockerhub credenatils
+### Step 15: Create a secret file for Dockerhub credenatils
 ```xml
 kubectl create secret docker-registry dockerhubcred --docker-server=https://hub.docker.com --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com
 ```
@@ -113,7 +117,7 @@ kubectl create secret docker-registry dockerhubcred --docker-server=https://hub.
   - name: dockerhubcred
 
 ```
-### Step 15: Access nodejs application through NodePort.
+### Step 16: Access nodejs application through NodePort.
 ```
 http://Node-IP:port/web-application
 ```
