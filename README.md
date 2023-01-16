@@ -117,7 +117,7 @@ kubectl apply -f .
 ```
 kubectl get pods -A
 ```
-### Step 15: Create a secret file for Dockerhub credenatils
+### Step 15: Create a secret file for Jfrog credenatils
 ```xml
 kubectl create secret docker-registry jfrogcred \
 --docker-server=https://a0twcdxxwofaz.jfrog.io \
