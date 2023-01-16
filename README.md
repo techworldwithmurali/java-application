@@ -12,12 +12,13 @@
 + AWS ECR repository is created
 + AWS EKS is created
 + IAM User is created
++ kubectl is installed
++ aws cli is installed
 
 ### Step 1: Clone the repository
   
 ```xml
   github url: https://github.com/techworldwithmurali/java-application.git
- branch name: deploy-to-eks-ecr
 ```
 ### Step 2: build the code
 ```xml
@@ -114,7 +115,7 @@ kubectl get pods -A
 ```
 ### Step 15: Create a secret file for Dockerhub credenatils
 ```xml
-kubectl create secret docker-registry regcred \
+kubectl create secret docker-registry ecrcred \
   --docker-server=108290765801.dkr.ecr.us-east-1.amazonaws.com \
   --docker-username=AWS \
   --docker-password= aws ecr get-login-password \
@@ -122,7 +123,7 @@ kubectl create secret docker-registry regcred \
 ```
 ```xml
   imagePullSecrets:
-  - name: dockerhubcred
+  - name: ecrcred
 
 ```
 ### Step 16: Access nodejs application through NodePort.
