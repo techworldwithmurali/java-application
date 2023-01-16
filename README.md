@@ -113,7 +113,7 @@ kubectl apply -f .
 ```
 kubectl get pods -A
 ```
-### Step 15: Access nodejs application through NodePort.
+### Step 15: Access java application through NodePort.
 ```
 http://Node-IP:port/web-application
 ```
