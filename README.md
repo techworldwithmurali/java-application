@@ -113,20 +113,7 @@ kubectl apply -f .
 ```
 kubectl get pods -A
 ```
-### Step 15: Create a secret file for Dockerhub credenatils
-```xml
-kubectl create secret docker-registry ecrcred \
-  --docker-server=108290765801.dkr.ecr.us-east-1.amazonaws.com \
-  --docker-username=AWS \
-  --docker-password= aws ecr get-login-password \
-  --namespace=default
-```
-```xml
-  imagePullSecrets:
-  - name: ecrcred
-
-```
-### Step 16: Access nodejs application through NodePort.
+### Step 15: Access nodejs application through NodePort.
 ```
 http://Node-IP:port/web-application
 ```
