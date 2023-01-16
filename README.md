@@ -12,6 +12,8 @@
 + DockerHub repository is created
 + AWS EKS is created
 + IAM User is created
++ kubectl is installed
++ aws cli is installed
 
 ### Step 1: Clone the repository
   
