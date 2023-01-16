@@ -122,7 +122,7 @@ kubectl create secret docker-registry dockerhubcred \
   - name: dockerhubcred
 
 ```
-### Step 16: Access nodejs application through NodePort.
+### Step 16: Access java application through NodePort.
 ```
 http://Node-IP:port/web-application
 ```
