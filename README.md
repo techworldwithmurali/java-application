@@ -48,13 +48,13 @@ docker build . --tag web-app:latest
 ```
 ### Step 6: Login to Jfrog in local
 ```xml
-docker login -umoole devopsbymurali.jfrog.io
+docker login -umoole a0twcdxxwofaz.jfrog.io
 ```
 ### Step 7: Push the docker image to Jfrog Artifactory.
 ```xml
-docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
+docker tag web-app:latest a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
 
-docker push devopsbymurali.jfrog.io/web-application/web-app:latest
+docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
 ```
 ### Step 8: Verify whether docker image is pushed or not in Jfrog Artifactory
 ### Step 9 : Write the Kubernetes Deployment and Service manifest files.
@@ -120,7 +120,7 @@ kubectl get pods -A
 ### Step 15: Create a secret file for Dockerhub credenatils
 ```xml
 kubectl create secret docker-registry jfrogcred \
---docker-server=https://devopsbymurali.jfrog.io \
+--docker-server=https://a0twcdxxwofaz.jfrog.io \
 --docker-username=moole \
 --docker-password=Techworld@2580
 ```
