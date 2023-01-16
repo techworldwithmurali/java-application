@@ -114,7 +114,7 @@ kubectl get pods -A
 ### Step 15: Create a secret file for Dockerhub credenatils
 ```xml
 kubectl create secret docker-registry dockerhubcred \
---docker-server=https://hub.docker.com \
+--docker-server=https://index.docker.io/v1/ \
 --docker-username=mmreddy424 \
 --docker-password=Docker@123 \
 --docker-email=techworldwithmurali@gmail.com
