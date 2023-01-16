@@ -94,7 +94,8 @@ spec:
 ```
 ### Step 10: Update the Dockerhub image in deployment.yaml
 ### Step 11: Configure  to the AWS CLI using Access key ID & Secret access key
-```aws configure
+```xml
+aws configure
 ```
 ### Step 12: Connect to the AWS EKS Cluster
 ```xml
