@@ -100,7 +100,7 @@ spec:
   selector:
     app: web-app
 ```
-### Step 10: Update the Dockerhub image in deployment.yaml
+### Step 10: Update the Jfrog artifactory docker image in deployment.yaml
 ### Step 11: Configure  to the AWS CLI using Access key ID & Secret access key
 ```xml
 aws configure
