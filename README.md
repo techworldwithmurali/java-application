@@ -7,11 +7,13 @@
 
 ### Prerequisites:
   + Jenkins is installed
+  + Jfrog artifactory is installed
   + Github token generate
 
 ### Step 1: Install and configure the jenkins plugins
   + git
   + maven integration
+  + artifactory
   
 ### Step 2: Create the user in Jfrog
 ```xml
