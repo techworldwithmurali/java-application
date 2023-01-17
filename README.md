@@ -1,13 +1,14 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins freestyle - Dockerizing and Pushing to Jfrog repository.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline - Dockerizing and Pushing to Jfrog repository.</br>
 
-## Jenkins freestyle - Dockerizing and Pushing to Jfrog repository.
+## Jenkins Pipeline - Dockerizing and Pushing to Jfrog repository.
 
 ### Prerequisites:
   + Jenkins is installed
   + Docker is installed
+  + Jfrog is installed
   + Github token generate
 
 ### Step 1: Install and configure the jenkins plugins
@@ -23,7 +24,7 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 4: Create the Jenkins Freestyle job
+### Step 4: Create the Jenkins pipeline job
 ```xml
 Job Name: pushing-docker-image-to-jfrog
 ```
@@ -31,14 +32,10 @@ Job Name: pushing-docker-image-to-jfrog
 ### Step 5: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-jfrog-freestyle
+Branch : pushing-docker-image-to-jfrog-jenkinsfile
 ```
 
-### Step 6: Invoke the top level maven targets
-```xml
-clean package
-```
-### Step 7: Write the Dockerfile
+### Step 6: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -47,19 +44,54 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 8: Build the Docker image
+### Step 7: Write the Jenkinsfile
+  + ### Step 7.1: Clone the repository 
 ```xml
-docker build . --tag web-app:latest
+stage('Clone') {
+            steps {
+                git branch: 'pushing-docker-image-to-jfrog-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+            }
+        }
 ```
-### Step 9: Login to Jfrog in local
+  + ### Step 7.2: Build the code
 ```xml
-docker login -u moole -p Techworld@2580 a0twcdxxwofaz.jfrog.io
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
 ```
-### Step 10: tag and push to Jfrog artifactory
+  + ### 7.3: Build Docker Image
 ```xml
-docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
-docker push devopsbymurali.jfrog.io/web-application/web-app:latest
+stage('Build Docker Image') {
+            steps {
+                sh '''
+              docker build . --tag web-app:latest
+              docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
+                
+                '''
+                
+            }
+        }
+   
 ```
++ ### Push Docker Image to Jfrog artifactory
+```xml
+stage('Push Docker Image') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'jfrog_crdenatils', passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
+       
+                    sh '''
+                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD
+                        docker push devopsbymurali.jfrog.io/web-application/web-app:latest
+                    '''
+                }
+            } 
+            
+        }
+```
+
+
 ### Step 11: Verify whether docker image is pushed or not in Jfrog Artifactory
 
-#### Congratulations. You have successfully pushed the docker image to Jfrog Artifactory through Jenkins Freestyle job.
+#### Congratulations. You have successfully pushed the docker image to Jfrog Artifactory through Jenkins Pipeline job.
