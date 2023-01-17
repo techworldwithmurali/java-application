@@ -9,6 +9,7 @@
 + Jenkins is installed
 + Docker is installed
 + AWS cli is installed
++ AWS EKS is created
 + IAM user is created.  User name: dev
 + Github token generate
 
@@ -16,12 +17,12 @@
  + git
  + maven integration
 
-### Step 2: Create the Docker repository
+### Step 2: Create the AWS ECR  repository
 ```xml
 Name: web-application
 ```
 
-### Step 3: Create the Jenkins job
+### Step 3: Create the Jenkins Free style job
 ```xml
 Job Name: deploy-to-eks-ecr-freestyle
 ```
