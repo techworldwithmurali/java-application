@@ -126,7 +126,6 @@ kubectl create secret docker-registry dockerhubcred \
 --docker-password=Docker@123 \
 --docker-email=techworldwithmurali@gmail.com
 ```
-Add  the deployment file to fetch the docker private repository
 ```xml
 imagePullSecrets:
 - name: dockerhubcred
