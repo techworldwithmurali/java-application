@@ -28,7 +28,7 @@ Job Name: pushing-docker-image-to-ecr
 ### Step 4: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-ecr-freestyle
+Branch : pushing-docker-image-to-ecr-jenkinsfile
 ```
 ### Step 5: Write the Dockerfile
 ```xml
@@ -44,7 +44,7 @@ CMD ["catalina.sh", "run"]
 ```xml
 stage('Clone') {
             steps {
-                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+                git branch: 'pushing-docker-image-to-ecr-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
