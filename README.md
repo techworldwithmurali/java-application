@@ -21,7 +21,7 @@
 Name: web-application
 ```
 
-### Step 3: Create the Jenkins Freestyle job
+### Step 3: Create the Jenkins Pipeline job
 ```xml
 Job Name: pushing-docker-image-to-ecr
 ```
@@ -30,11 +30,7 @@ Job Name: pushing-docker-image-to-ecr
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : pushing-docker-image-to-ecr-freestyle
 ```
-### Step 5: Invoke the top level maven targets
-```xml
-clean package
-```
-### Step 6: Write the Dockerfile
+### Step 5: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -43,23 +39,54 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 7: Build and tag the Docker image
+### Step 6: Write the Jenkinsfile
+  + ### Step 6.1: Clone the repository 
 ```xml
-docker build . --tag web-application:latest
-docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+stage('Clone') {
+            steps {
+                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+            }
+        }
 ```
-### Step 11: Configure the AWS credenatils in Jenkins Server
+  + ### Step 6.2: Build the code
 ```xml
-aws configure
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
 ```
-### Step 8: login to AWS ECR
+  + ### 6.3: Build Docker Image
 ```xml
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
+stage('Build Docker Image') {
+            steps {
+                sh '''
+              docker build . --tag web-application:latest
+              docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                
+                '''
+                
+            }
+        }
+   
 ```
-### Step 9: Push to AWS ECR
-```xml
-docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
-```
-### Step 10: Verify whether docker image is pushed or not in AWS ECR
++ ### Push Docker Image to AWS ECR
 
-#### Congratulations. You have successfully Pushed the docker image to AWS ECR using Jenkins freestyle job.
+```xml
+stage('Push Docker Image') {
+ withAWS(credentials: 'AWS', region: 'us-east-1') {
+       
+                    sh '''
+                   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
+                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                    '''
+                }
+            } 
+            
+        }
+```
+
+
+### Step 7: Verify whether docker image is pushed or not in AWS ECR
+
+#### Congratulations. You have successfully Pushed the docker image to AWS ECR using Jenkins Pipeline job.
