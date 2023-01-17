@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for manually Deploy to EKS fetching image from Jfrog repository.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins freestyle - Deploy to EKS fetching image from Jfrog repository.</br>
 
-## Manually - Deploy to EKS fetching image from Jfrog repository.
+## Jenkins freestyle - Deploy to EKS fetching image from Jfrog repository.
 
 ### Prerequisites:
   + Jenkins is installed
@@ -24,15 +24,20 @@ Password: Techworld@2580
 Repository Name: web-application
 ```
 Step 4: Create the Jenkins job
-  Job Name: Dockerizing and Pushing to Jfrog artifactory
+```xml
+Job Name: deploy-to-eks-jfrog-freestyle
+```
 
 Step 5: Configure the git repository
-          Url: https://github.com/techworldwithmurali/java-application.git
-          Branch : pushing-docker-image-to-jfrog
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : deploy-to-eks-jfrog-freestyle
+```
 
 Step 6: Invoke the top level maven targets
-        clean package
-
+```xml
+clean package
+```
 ### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
