@@ -34,8 +34,16 @@ Job Name: deploy-to-eks-jfrog-jenkinsfile
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-jfrog-jenkinsfile
 ```
-
-### Step 6: Write the Kubernetes Deployment and Service manifest files.
+### Step 6: Write the Dockerfile
+```xml
+FROM tomcat:9
+RUN apt update
+WORKDIR /usr/local/tomcat
+ADD target/*.war webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+```
+### Step 7: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -78,8 +86,8 @@ spec:
   selector:
     app: web-app
 ```
-### Step 7: Write the Jenkinsfile
-  + ### Step 7.1: Clone the repository 
+### Step 8: Write the Jenkinsfile
+  + ### Step 8.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -87,7 +95,7 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 7.2: Build the code
+  + ### Step 8.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -95,7 +103,7 @@ stage('Build') {
             }
         }
 ```
-  + ### Step 7.3: Build Docker Image
+  + ### Step 8.3: Build Docker Image
 ```xml
 stage('Build Docker Image') {
             steps {
@@ -109,7 +117,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### Step 7.4: Push Docker Image to Jfrog artifactory
++ ### Step 8.4: Push Docker Image to Jfrog artifactory
 ```xml
 stage('Push Docker Image') {
             steps {
@@ -124,7 +132,7 @@ stage('Push Docker Image') {
             
         }
 ```
-+ ### Step 7.5: Deploy to AWS EKS
++ ### Step 8.5: Deploy to AWS EKS
 ```xml
 stage('Deployto AWS EKS') {
             steps {
