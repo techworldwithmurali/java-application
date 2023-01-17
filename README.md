@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle Job - Dockerizing and Pushing to AWS ECR.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline Job - Dockerizing and Pushing to AWS ECR.</br>
 
-## Jenkins Freestyle Job - Dockerizing and Pushing to AWS ECR..
+## Jenkins Pipeline Job - Dockerizing and Pushing to AWS ECR..
 
 ### Prerequisites:
 + Jenkins is installed
