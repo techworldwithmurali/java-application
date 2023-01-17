@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle - Deploy to EKS fetching image from DockerHub.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline - Deploy to EKS fetching image from DockerHub.</br>
 
-## Jenkins Freestyle - Deploy to EKS fetching image from DockerHub.
+## Jenkins Pipeline - Deploy to EKS fetching image from DockerHub.
 
 ### Prerequisites:
 + Jenkins is installed
