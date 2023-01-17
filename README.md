@@ -9,6 +9,7 @@
 + Jenkins is installed
 +  Docker is installed
 +  AWS EKS is created
++  Github token generate
 
 ### Step 1: Install and configure the jenkins plugins
  + git
