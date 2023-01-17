@@ -34,7 +34,7 @@ GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : build-and-push-to-jfrog-jenkinsfile
 ```
 ### Step 6: Write the Jenkinsfile
-### Step 6.1: Clone the repository 
+  + ### Step 6.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -42,7 +42,7 @@ stage('Clone') {
             }
         }
 ```
-### Step 6.2: Build the code
+  + ### Step 6.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -50,7 +50,7 @@ stage('Build') {
             }
         }
 ```
-### 6.3: Push the artifacts to jfrog repository
+  + ### 6.3: Push the artifacts to jfrog repository
 ```xml
 ```
 
