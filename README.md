@@ -70,7 +70,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### Push Docker Image to AWS ECR
++ ### 6.4: Push Docker Image to AWS ECR
 
 ```xml
 stage('Push Docker Image') {
