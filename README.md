@@ -9,6 +9,7 @@
   + Jenkins is installed
   + Docker is installed
   + Github token generate
+  + AWs EKS is created
 
 ### Step 1: Install and configure the jenkins plugins
   + git
@@ -123,7 +124,7 @@ kubectl set image deployment/web-application web-application=mmreddy424/web-appl
 ```xml
 kubectl get pods -A
 ```
-### Step 17: Create a secret file for Dockerhub credenatils
+### Step 17: Create a secret file for Jfrog credenatils
 ```xml
 kubectl create secret docker-registry jfrogcred \
 --docker-server=https://a0twcdxxwofaz.jfrog.io \
