@@ -3,14 +3,13 @@
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
 + <b>Description:</b> Below are the steps outlined for Jenkins Freestyle Job - Deploy to EKS fetching image from AWS ECR.</br>
 
-## Manually - Deploy to EKS fetching image from AWS ECR.
+## Jenkins Freestyle Job - Deploy to EKS fetching image from AWS ECR.
 
 ### Prerequisites:
 + Jenkins is installed
 + Docker is installed
 + AWS cli is installed
-+ IAM user is created
-    User name: dev
++ IAM user is created.  User name: dev 
 
 ### Step 1: Install and configure the jenkins plugins
  + git
