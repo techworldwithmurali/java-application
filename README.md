@@ -56,4 +56,4 @@ docker push mmreddy424/web-application:latest
 ```
 ### Step 10: Verify whether docker image is pushed or not in DockerHub
 
-##### Congratulations. You have successfully pushed the docker image to DockerHub.
+##### Congratulations. You have successfully pushed the docker image to DockerHub using Jenkins freestyle job.
