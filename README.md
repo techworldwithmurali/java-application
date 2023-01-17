@@ -67,7 +67,7 @@ stage('Build Docker Image') {
             steps {
                 sh '''
               docker build . --tag web-app:latest
-              docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
+              docker tag web-app:latest a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
                 
                 '''
                 
@@ -83,7 +83,7 @@ stage('Push Docker Image') {
        
                     sh '''
                     docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD
-                        docker push devopsbymurali.jfrog.io/web-application/web-app:latest
+                        docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
                     '''
                 }
             } 
