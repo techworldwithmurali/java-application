@@ -52,6 +52,18 @@ stage('Build') {
 ```
   + ### 6.3: Push the artifacts to jfrog repository
 ```xml
+stage('Deploy') {
+            steps {
+                withArtifactory(credentialsId: 'artifactory_credentials', 
+                                serverId: 'your_artifactory_server',
+                                deployer: mavenDeployer(deployerId: 'artifactory_deployer', 
+                                                        releaseRepo: 'your_release_repo', 
+                                                        snapshotRepo: 'your_snapshot_repo')) {
+                                                            sh 'mvn deploy'
+                                                        }
+            }
+        }
+  
 ```
 
 ### Step 8: Verify whether artifact(war) is published or not in Jfrog Artifactory.
