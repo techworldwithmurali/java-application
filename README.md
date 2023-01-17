@@ -1,34 +1,38 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for manually Deploy to EKS fetching image from DockerHub.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle - Deploy to EKS fetching image from DockerHub.</br>
 
-## Manually - Deploy to EKS fetching image from DockerHub.
+## Jenkins Freestyle - Deploy to EKS fetching image from DockerHub.
 
 ### Prerequisites:
-+ Git is installed
-+ Maven is installed
-+ Docker is installed
-+ DockerHub repository is created
-+ AWS EKS is created
-+ IAM User is created
-+ kubectl is installed
-+ aws cli is installed
++ Jenkins is installed
++  Docker is installed
++  AWS EKS is created
 
-### Step 1: Clone the repository
-  
+### Step 1: Install and configure the jenkins plugins
+ + git
+ + maven integration
+
+### Step 2: Create the Docker repository
 ```xml
-  github url: https://github.com/techworldwithmurali/java-application.git
+Name: web-application
 ```
-### Step 2: build the code
+
+### Step 3: Create the Jenkins job
 ```xml
-mvn package
+Job Name: deploy-to-eks-dockerhub
 ```
-### Step 3: Create the repository in DockerHub
+### Step 4: Configure the git repository
 ```xml
-Repository Name: web-application
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : deploy-to-eks-dockerhub
 ```
-### Step 4: Write the Dockerfile
+### Step 4: Invoke the top level maven targets
+```xml
+clean package
+```
+### Step 5: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -37,25 +41,29 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 5: Build and tag the Docker image
+### Step 6: Build and tag the Docker image
 ```xml
 docker build . --tag web-application:latest
 docker tag web-application:latest mmreddy424/web-application:latest
 ```
-### Step 6: Login to DockerHub in local
+### Step 7: login to DockerHub
 ```xml
-docker login
+docker login -u mmreddy424 -p Docker@123
 ```
-### Step 7: Push the docker image to DockerHub
+### Step 8: Push to DockerHub
 ```xml
 docker push mmreddy424/web-application:latest
 ```
-### Step 8: Verify whether docker image is pushed or not in DockerHub
-### Step 9 : Write the Kubernetes Deployment and Service manifest files.
+### Step 9: Verify whether docker image is pushed or not in DockerHub
+### Step 10: Configure the AWS credenatils in Jenkins Server
+```xml
+aws configure
+```
+### Step 11: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
-apiVersion: apps/v1app
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app
@@ -94,24 +102,22 @@ spec:
   selector:
     app: web-app
 ```
-### Step 10: Update the Dockerhub image in deployment.yaml
-### Step 11: Configure  to the AWS CLI using Access key ID & Secret access key
-```xml
-aws configure
-```
-### Step 12: Connect to the AWS EKS Cluster
+### Step 11: Connect to the AWS EKS Cluster
 ```xml
 aws eks update-kubeconfig --name dev-cluster --region us-east-1
-````
-### Step 13: Apply the Kubernetes manifest files
 ```
+### Step 12: Apply the Kubernetes manifest files
+```xml
+cd kubernetes
 kubectl apply -f .
+
+kubectl set image deployment/web-application web-application=mmreddy424/web-application:latest
 ```
-### Step 14: Verify wether pods are running or not
-```
+### Step 13:Verify whether pods are running or not
+```xml
 kubectl get pods -A
 ```
-### Step 15: Create a secret file for Dockerhub credenatils
+### Step 14: Create a secret file for Dockerhub credenatils
 ```xml
 kubectl create secret docker-registry dockerhubcred \
 --docker-server=https://index.docker.io/v1/ \
@@ -119,15 +125,13 @@ kubectl create secret docker-registry dockerhubcred \
 --docker-password=Docker@123 \
 --docker-email=techworldwithmurali@gmail.com
 ```
+Add  the deployment file to fetch the docker private repository
 ```xml
-  imagePullSecrets:
-  - name: dockerhubcred
-
+imagePullSecrets:
+- name: dockerhubcred
 ```
-### Step 16: Access java application through NodePort.
-```
+### Step 15: Access java application through NodePort.
+```xml
 http://Node-IP:port/web-application
 ```
-
-
-#### Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS).
+Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Freestyle job.
