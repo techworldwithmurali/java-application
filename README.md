@@ -57,7 +57,7 @@ docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
 ##### deployment.yaml
 ```xml
 
-apiVersion: apps/v1app
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app
