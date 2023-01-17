@@ -24,12 +24,12 @@ Name: web-application
 
 ### Step 3: Create the Jenkins Free style job
 ```xml
-Job Name: deploy-to-eks-ecr-freestyle
+Job Name: deploy-to-eks-ecr-jenkinsfile
 ```
 ### Step 4: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : deploy-to-eks-ecr-freestyle
+Branch : deploy-to-eks-ecr-jenkinsfile
 ```
 
 ### Step 5: Write the Dockerfile
@@ -41,7 +41,7 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
+### Step 6: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -84,69 +84,9 @@ spec:
   selector:
     app: web-app
 ```
-### Step 6: Build and tag the Docker image
-```xml
-docker build . --tag web-application:latest
-docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
-```
-### Step 11: Configure the AWS credenatils in Jenkins Server
-```xml
-aws configure
-```
-### Step 8: login to AWS ECR
-```xml
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
-```
-### Step 9: Push to AWS ECR
-```xml
-docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
-```
-### Step 10: Verify whether docker image is pushed or not in AWS ECR
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
-##### deployment.yaml
-```xml
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-app
-  labels:
-    app: web-app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: web-app
-  template:
-    metadata:
-      labels:
-        app: web-app
-    spec:
-      containers:
-      - name: web-application
-        image: web-app:1
-        ports:
-        - containerPort: 8080
-```
-##### service.yaml
-```xml
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: web-app
-  labels:
-    app: web-app
-spec:
-  type: NodePort
-  ports:  
-    - port: 8080
-      targetPort: 8080
-  selector:
-    app: web-app
-```
-### Step 6: Write the Jenkinsfile
-  + ### Step 6.1: Clone the repository 
+### Step 7: Write the Jenkinsfile
+  + ### Step 7.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -154,7 +94,7 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 6.2: Build the code
+  + ### Step 7.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -162,7 +102,7 @@ stage('Build') {
             }
         }
 ```
-  + ### 6.3: Build Docker Image
+  + ### Step 7.3: Build Docker Image
 ```xml
 stage('Build Docker Image') {
             steps {
@@ -176,7 +116,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### 6.4: Push Docker Image to AWS ECR
++ ### Step 7.4: Push Docker Image to AWS ECR
 
 ```xml
 stage('Push Docker Image') {
@@ -191,7 +131,7 @@ stage('Push Docker Image') {
             
         }
 ```
-+ ### Step 6.5:Deploy to AWS EKS
++ ### Step 7.5:Deploy to AWS EKS
 ```xml
 stage('Deployto AWS EKS') {
             steps {
@@ -211,7 +151,11 @@ stage('Deployto AWS EKS') {
             
         }
 ```
-### Step 16: Access java application through NodePort.
+### Step 8:Verify whether pods are running or not
+```xml
+kubectl get pods -A
+```
+### Step 9: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
