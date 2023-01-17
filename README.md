@@ -9,7 +9,8 @@
 + Jenkins is installed
 + Docker is installed
 + AWS cli is installed
-+ IAM user is created.  User name: dev 
++ IAM user is created.  User name: dev
++ Github token generate
 
 ### Step 1: Install and configure the jenkins plugins
  + git
@@ -22,7 +23,7 @@ Name: web-application
 
 ### Step 3: Create the Jenkins job
 ```xml
-Job Name: deploy-to-eks-ecr
+Job Name: deploy-to-eks-ecr-freestyle
 ```
 ### Step 4: Configure the git repository
 ```xml
@@ -112,7 +113,7 @@ aws eks update-kubeconfig --name dev-cluster --region us-east-1
 cd kubernetes
 kubectl apply -f .
 
-kubectl set image deployment/web-application web-application=mmreddy424/web-application:latest
+kubectl set image deployment/web-application web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
 ```
 ### Step 14:Verify whether pods are running or not
 ```xml
