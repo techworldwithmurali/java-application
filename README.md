@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle - Dockerizing and Pushing to DockerHub.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline - Dockerizing and Pushing to DockerHub.</br>
 
-## Jenkins Freestyle - Dockerizing and Pushing to DockerHub.
+## Jenkins Pipeline - Dockerizing and Pushing to DockerHub.
 
 ### Prerequisites:
 + Jenkins is installed
@@ -19,41 +19,64 @@
 Name: web-application
 ```
 
-### Step 3: Create the Jenkins Freestyle job
+### Step 3: Create the Jenkins Pipeline job
 ```xml
 Job Name: pushing-docker-image-to-dockerhub
 ```
 ### Step 4: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-dockerhub-freestyle
+Branch : pushing-docker-image-to-dockerhub-jenkinsfile
 ```
-### Step 5: Invoke the top level maven targets
+
+### Step 6: Write the Jenkinsfile
+  + ### Step 6.1: Clone the repository 
 ```xml
-clean package
+stage('Clone') {
+            steps {
+                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+            }
+        }
 ```
-### Step 6: Write the Dockerfile
+  + ### Step 6.2: Build the code
 ```xml
-FROM tomcat:9
-RUN apt update
-WORKDIR /usr/local/tomcat
-ADD target/*.war webapps/
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
 ```
-### Step 7: Build and tag the Docker image
+  + ### 6.3: Build Docker Image
 ```xml
-docker build . --tag web-application:latest
-docker tag web-application:latest mmreddy424/web-application:latest
+stage('Build Docker Image') {
+            steps {
+                sh '''
+               docker build . --tag web-application:latest
+               docker tag web-application:latest mmreddy424/web-application:latest
+                
+                '''
+                
+            }
+        }
+   
 ```
-### Step 8: login to DockerHub
++ ### Push Docker Image
 ```xml
-docker login -u mmreddy424 -p Docker@123
+stage('Push Docker Image') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'dockerhub_crdenatils', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+       
+                    sh '''
+                    docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+                        docker push mmreddy424/web-application:latest
+                    '''
+                }
+            } 
+            
+        }
 ```
-### Step 9: Push to DockerHub
-```xml
-docker push mmreddy424/web-application:latest
-```
+
+
 ### Step 10: Verify whether docker image is pushed or not in DockerHub
 
-##### Congratulations. You have successfully pushed the docker image to DockerHub using Jenkins freestyle job.
+##### Congratulations. You have successfully pushed the docker image to DockerHub using Jenkins Pipeline job.
