@@ -10,35 +10,35 @@
   + Docker is installed
   + Github token generate
 
-Step 1: Install and configure the jenkins plugins
+### Step 1: Install and configure the jenkins plugins
   + git
   + maven integration
   
-### Step 3.1: Create the user in Jfrog
+### Step 2: Create the user in Jfrog
 ```xml
 UserName: moole
 Password: Techworld@2580
 ```
-### Step 3.2: Create the docker repository in Jfrog
+### Step 3: Create the docker repository in Jfrog
 ```xml
 Repository Name: web-application
 ```
-Step 4: Create the Jenkins job
+### Step 4: Create the Jenkins job
 ```xml
 Job Name: deploy-to-eks-jfrog-freestyle
 ```
 
-Step 5: Configure the git repository
+### Step 5: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-jfrog-freestyle
 ```
 
-Step 6: Invoke the top level maven targets
+### Step 6: Invoke the top level maven targets
 ```xml
 clean package
 ```
-### Step 4: Write the Dockerfile
+### Step 7: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -47,25 +47,25 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 5: Build the Docker image
+### Step 8: Build the Docker image
 ```xml
 docker build . --tag web-app:latest
 ```
-### Step 6: Login to Jfrog in local
+### Step 9: Login to Jfrog in local
 ```xml
 docker login -u moole -p Techworld@2580 a0twcdxxwofaz.jfrog.io
 ```
-### Step 7: tag and push to Jfrog artifactory
+### Step 10: tag and push to Jfrog artifactory
 ```xml
 docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
 docker push devopsbymurali.jfrog.io/web-application/web-app:latest
 ```
-### Step 8: Verify whether docker image is pushed or not in Jfrog Artifactory
-### Step 11: Configure the AWS credenatils in Jenkins Server
+### Step 11: Verify whether docker image is pushed or not in Jfrog Artifactory
+### Step 12: Configure the AWS credenatils in Jenkins Server
 ```xml
 aws configure
 ```
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
+### Step 13: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -108,22 +108,22 @@ spec:
   selector:
     app: web-app
 ```
-### Step 12: Connect to the AWS EKS Cluster
+### Step 14: Connect to the AWS EKS Cluster
 ```xml
 aws eks update-kubeconfig --name dev-cluster --region us-east-1
 ```
-### Step 13: Apply the Kubernetes manifest files
+### Step 15: Apply the Kubernetes manifest files
 ```xml
 cd kubernetes
 kubectl apply -f .
 
 kubectl set image deployment/web-application web-application=mmreddy424/web-application:latest
 ```
-### Step 14:Verify whether pods are running or not
+### Step 16:Verify whether pods are running or not
 ```xml
 kubectl get pods -A
 ```
-### Step 15: Create a secret file for Dockerhub credenatils
+### Step 17: Create a secret file for Dockerhub credenatils
 ```xml
 kubectl create secret docker-registry jfrogcred \
 --docker-server=https://a0twcdxxwofaz.jfrog.io \
@@ -134,7 +134,7 @@ kubectl create secret docker-registry jfrogcred \
   imagePullSecrets:
   - name: jfrogcred
 ```
-### Step 16: Access java application through NodePort.
+### Step 18: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
