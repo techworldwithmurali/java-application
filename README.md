@@ -1,48 +1,45 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for manually build and generate the static code analysis report using SonarQube.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle - Static Code Analysis using SonarQube</br>
 
-## Manually - Build and generate the static code analysis report using SonarQube.
+## Jenkins Freestyle - Static Code Analysis using SonarQube
 
 ### Prerequisites:
-+ Git is installed
-+ Maven is installed
-+ SonarQube is installed
+  + Jenkins is installed
+  + SonarQube is installed
+  + Github token generate
 
-### Step 1: Clone the repository
-  ```xml
-  git clone https://github.com/techworldwithmurali/java-application.git
-```
-### Step 2: Create the SonarQube token
-### Step 3: Update the SonarQube details in pom.xml
+### Step 1: Install and configure the jenkins plugins
+  + git
+  + maven integration
+  + SonarQube Scanner plugin
+  
+### Step 2: Create the Jenkins Freestyle job
 ```xml
-<dependency>
-<groupId>org.sonarsource.scanner.maven</groupId>
-<artifactId>sonar-maven-plugin</artifactId>
-<version>3.2</version>
-</dependency>
-
-<profiles>
-<profile>
-<id>sonar</id>
-<activation>
-<activeByDefault>true</activeByDefault>
-</activation>
-<properties>
-<!-- Optional URL to server. Default value is http://localhost:9000 -->
-<sonar.host.url>
-http://10.155.19.5:9000
-</sonar.host.url>
-</properties>
-</profile>
-</profiles>
-
+Job Name: static-code-analysis
 ```
-### Step 4: Run below command to generate the static code analysis report.
-```sh
-mvn sonar:sonar -Dsonar.sonar.host.url=http://13.233.6.6:9000 -Dsonar.login=a59971a4cf3ee650a17c928570ce7fb268c36a90
+### Step 3: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : static-code-analysis-freestyle
 ```
-### Step 5: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
+### Step 4: Configure the Execute SonarQube Scanner
+##### soanrqube.properties
+```xml
+sonar.projectKey=java-web-application
+sonar.projectName=web-application
+sonar.projectVersion=static-code-analysis-freestyle
+sonar.issuesReport.html.enable=true
+sonar.sources=.
+sonar.java.binaries=target/classes
 
-#### Congratulations. You have successfully Published the static code analysis report in SonarQube..
+sonar.tests=src/test/java
+sonar.java.test.binaries=target/test-classes
+sonar.junit.reportPaths=target/surefire-reports
+```
+
+     
+### Step 7: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
+
+#### Congratulations. You have successfully Published the static code analysis report in SonarQube using Jenkins Freestyle job.
