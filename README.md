@@ -24,49 +24,18 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 4: Create the Jenkins job
+### Step 4: Create the Jenkins Pipeline job
 ```xml
-Job Name: deploy-to-eks-jfrog-freestyle
+Job Name: deploy-to-eks-jfrog-jenkinsfile
 ```
 
 ### Step 5: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : deploy-to-eks-jfrog-freestyle
+Branch : deploy-to-eks-jfrog-jenkinsfile
 ```
 
-### Step 6: Invoke the top level maven targets
-```xml
-clean package
-```
-### Step 7: Write the Dockerfile
-```xml
-FROM tomcat:9
-RUN apt update
-WORKDIR /usr/local/tomcat
-ADD target/*.war webapps/
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
-```
-### Step 8: Build the Docker image
-```xml
-docker build . --tag web-app:latest
-```
-### Step 9: Login to Jfrog in local
-```xml
-docker login -u moole -p Techworld@2580 a0twcdxxwofaz.jfrog.io
-```
-### Step 10: tag and push to Jfrog artifactory
-```xml
-docker tag web-app:latest devopsbymurali.jfrog.io/web-application/web-app:latest
-docker push devopsbymurali.jfrog.io/web-application/web-app:latest
-```
-### Step 11: Verify whether docker image is pushed or not in Jfrog Artifactory
-### Step 12: Configure the AWS credenatils in Jenkins Server
-```xml
-aws configure
-```
-### Step 13: Write the Kubernetes Deployment and Service manifest files.
+### Step 12: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -109,17 +78,73 @@ spec:
   selector:
     app: web-app
 ```
-### Step 14: Connect to the AWS EKS Cluster
+### Step 6: Write the Jenkinsfile
+  + ### Step 6.1: Clone the repository 
 ```xml
-aws eks update-kubeconfig --name dev-cluster --region us-east-1
+stage('Clone') {
+            steps {
+                git branch: 'deploy-to-eks-jfrog-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+            }
+        }
 ```
-### Step 15: Apply the Kubernetes manifest files
+  + ### Step 6.2: Build the code
 ```xml
-cd kubernetes
-kubectl apply -f .
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+```
+  + ### 6.3: Build Docker Image
+```xml
+stage('Build Docker Image') {
+            steps {
+                sh '''
+                docker build . --tag web-app:latest
+              docker tag web-app:latest a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+                
+                '''
+                
+            }
+        }
+   
+```
++ ### Push Docker Image to Jfrog artifactory
+```xml
+stage('Push Docker Image') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'jfrog_crdenatils', passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
+       
+                    sh '''
+                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD a0twcdxxwofaz.jfrog.io
+                        docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+                    '''
+                }
+            } 
+            
+        }
+```
++ ### Deploy to AWS EKS
+```xml
+stage('Deployto AWS EKS') {
+            steps {
+                // configure AWS credentials
+               withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
 
-kubectl set image deployment/web-application web-application=mmreddy424/web-application:latest
+                    // configure kubectl to access EKS cluster
+                    sh 'aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+
+                    // apply YAML files to EKS cluster
+                    sh ' kubectl apply -f kubernetes-yaml/deployment.yaml '
+                    sh 'kubectl apply -f kubernetes-yaml/service.yaml'
+                    sh 'kubectl set image deployment/web-app web-application=a0twcdxxwofaz.jfrog.io/web-application/web-app:latest'
+                }
+           
+        }
+            
+        }
 ```
+
 ### Step 16:Verify whether pods are running or not
 ```xml
 kubectl get pods -A
