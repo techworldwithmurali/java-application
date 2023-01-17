@@ -55,7 +55,7 @@ docker push mmreddy424/web-application:latest
 ##### deployment.yaml
 ```xml
 
-apiVersion: apps/v1app
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app
