@@ -85,7 +85,7 @@ spec:
 ```xml
 stage('Clone') {
             steps {
-                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+                git branch: 'deploy-to-eks-dockerhub-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
