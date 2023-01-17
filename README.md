@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle Job - Deploy to EKS fetching image from AWS ECR.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline Job - Deploy to EKS fetching image from AWS ECR.</br>
 
-## Jenkins Freestyle Job - Deploy to EKS fetching image from AWS ECR.
+## Jenkins Pipeline Job - Deploy to EKS fetching image from AWS ECR.
 
 ### Prerequisites:
 + Jenkins is installed
@@ -31,11 +31,8 @@ Job Name: deploy-to-eks-ecr-freestyle
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-ecr-freestyle
 ```
-### Step 5: Invoke the top level maven targets
-```xml
-clean package
-```
-### Step 6: Write the Dockerfile
+
+### Step 5: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -44,7 +41,50 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 7: Build and tag the Docker image
+### Step 12: Write the Kubernetes Deployment and Service manifest files.
+##### deployment.yaml
+```xml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-application
+        image: web-app:1
+        ports:
+        - containerPort: 8080
+```
+##### service.yaml
+```xml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  type: NodePort
+  ports:  
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: web-app
+```
+### Step 6: Build and tag the Docker image
 ```xml
 docker build . --tag web-application:latest
 docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
@@ -105,23 +145,74 @@ spec:
   selector:
     app: web-app
 ```
-### Step 12: Connect to the AWS EKS Cluster
+### Step 6: Write the Jenkinsfile
+  + ### Step 6.1: Clone the repository 
 ```xml
-aws eks update-kubeconfig --name dev-cluster --region us-east-1
+stage('Clone') {
+            steps {
+                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+            }
+        }
 ```
-### Step 13: Apply the Kubernetes manifest files
+  + ### Step 6.2: Build the code
 ```xml
-cd kubernetes
-kubectl apply -f .
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+```
+  + ### 6.3: Build Docker Image
+```xml
+stage('Build Docker Image') {
+            steps {
+                sh '''
+              docker build . --tag web-application:latest
+              docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                
+                '''
+                
+            }
+        }
+   
+```
++ ### 6.4: Push Docker Image to AWS ECR
 
-kubectl set image deployment/web-application web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
-```
-### Step 14:Verify whether pods are running or not
 ```xml
-kubectl get pods -A
+stage('Push Docker Image') {
+ withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
+       
+                    sh '''
+                   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
+                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                    '''
+                }
+            } 
+            
+        }
+```
++ ### Step 6.5:Deploy to AWS EKS
+```xml
+stage('Deployto AWS EKS') {
+            steps {
+                // configure AWS credentials
+               withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
+
+                    // configure kubectl to access EKS cluster
+                    sh 'aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+
+                    // apply YAML files to EKS cluster
+                    sh ' kubectl apply -f kubernetes-yaml/deployment.yaml '
+                    sh 'kubectl apply -f kubernetes-yaml/service.yaml'
+                    sh 'kubectl set image deployment/web-app web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest'
+                }
+           
+        }
+            
+        }
 ```
 ### Step 16: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
-Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Freestyle job.
+Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Pipeline job.
