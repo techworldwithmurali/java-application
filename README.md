@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle - building and pushing artifacts(war) to Jfrog Artifactory</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins Pipeline - building and pushing artifacts(war) to Jfrog Artifactory</br>
 
-## Jenkins Freestyle - Build and Push to Jfrog Artifactory
+## Jenkins Pipeline - Build and Push to Jfrog Artifactory
 
 ### Prerequisites:
   + Jenkins is installed
@@ -24,19 +24,36 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 4: Create the Jenkins Freestyle job
+### Step 4: Create the Jenkins Pipeline job
 ```xml
 Job Name: build-and-push-to-jfrog
 ```
 ### Step 5: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : build-and-push-to-jfrog-freestyle
+Branch : build-and-push-to-jfrog-jenkinsfile
 ```
-### Step 6: Configure the Invoke Artifactory Maven 3
-      clean install
-### Step 7: Configure the Maven3 artifactory Integration
+### Step 6: Write the Jenkinsfile
+### Step 6.1: Clone the repository 
+```xml
+stage('Clone') {
+            steps {
+                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+            }
+        }
+```
+### Step 6.2: Build the code
+```xml
+stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+```
+### 6.3: Push the artifacts to jfrog repository
+```xml
+```
 
 ### Step 8: Verify whether artifact(war) is published or not in Jfrog Artifactory.
 
-#### Congratulations. You have successfully published the artifact(war) file in Jfrog repository using Jenkins Freestyle job.
+#### Congratulations. You have successfully published the artifact(war) file in Jfrog repository using Jenkins Pipeline job.
