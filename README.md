@@ -61,7 +61,7 @@ docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
 ##### deployment.yaml
 ```xml
 
-apiVersion: apps/v1app
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-app
