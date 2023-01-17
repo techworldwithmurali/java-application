@@ -1,40 +1,34 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins Freestyle Job - Deploy to EKS fetching image from AWS ECR.</br>
++ <b>Description:</b> Below are the steps outlined for manually Deploy to EKS fetching image from AWS ECR.</br>
 
 ## Manually - Deploy to EKS fetching image from AWS ECR.
 
 ### Prerequisites:
-+ Jenkins is installed
++ Git is installed
++ Maven is installed
 + Docker is installed
-+ AWS cli is installed
-+ IAM user is created
-    User name: dev
++ AWS ECR repository is created
++ AWS EKS is created
++ IAM User is created
++ kubectl is installed
++ aws cli is installed
 
-### Step 1: Install and configure the jenkins plugins
- + git
- + maven integration
-
-### Step 2: Create the Docker repository
+### Step 1: Clone the repository
+  
 ```xml
-Name: web-application
+  github url: https://github.com/techworldwithmurali/java-application.git
 ```
-
-### Step 3: Create the Jenkins job
+### Step 2: build the code
 ```xml
-Job Name: deploy-to-eks-ecr
+mvn package
 ```
-### Step 4: Configure the git repository
+### Step 3: Create the repository in AWS ECR
 ```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : deploy-to-eks-ecr-freestyle
+Repository Name: web-application
 ```
-### Step 5: Invoke the top level maven targets
-```xml
-clean package
-```
-### Step 6: Write the Dockerfile
+### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -43,29 +37,27 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 7: Build and tag the Docker image
+### Step 5: Build and tag the Docker image.
 ```xml
 docker build . --tag web-application:latest
+
 docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
 ```
-### Step 11: Configure the AWS credenatils in Jenkins Server
-```xml
-aws configure
-```
-### Step 8: login to AWS ECR
+### Step 6: Login to  AWS ECR in local
 ```xml
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
 ```
-### Step 9: Push to AWS ECR
+### Step 7: Push the docker image to AWS ECR
+
+### Step 8: Verify whether docker image is pushed or not in AWS ECR
 ```xml
 docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
 ```
-### Step 10: Verify whether docker image is pushed or not in AWS ECR
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
+### Step 9 : Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
-apiVersion: apps/v1
+apiVersion: apps/v1app
 kind: Deployment
 metadata:
   name: web-app
@@ -104,23 +96,27 @@ spec:
   selector:
     app: web-app
 ```
+### Step 10: Update the AWS ECR image in deployment.yaml
+### Step 11: Configure  to the AWS CLI using Access key ID & Secret access key
+```xml
+aws configure
+```
 ### Step 12: Connect to the AWS EKS Cluster
 ```xml
 aws eks update-kubeconfig --name dev-cluster --region us-east-1
-```
+````
 ### Step 13: Apply the Kubernetes manifest files
-```xml
-cd kubernetes
-kubectl apply -f .
-
-kubectl set image deployment/web-application web-application=mmreddy424/web-application:latest
 ```
-### Step 14:Verify whether pods are running or not
-```xml
+kubectl apply -f .
+```
+### Step 14: Verify wether pods are running or not
+```
 kubectl get pods -A
 ```
-### Step 16: Access java application through NodePort.
-```xml
+### Step 15: Access java application through NodePort.
+```
 http://Node-IP:port/web-application
 ```
-Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Freestyle job.
+
+
+#### Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS).
