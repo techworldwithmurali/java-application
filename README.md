@@ -62,4 +62,4 @@ docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
 ```
 ### Step 10: Verify whether docker image is pushed or not in AWS ECR
 
-Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Freestyle job.
+#### Congratulations. You have successfully Pushed the docker image to AWS ECR using Jenkins freestyle job.
