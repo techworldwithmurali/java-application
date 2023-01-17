@@ -1,9 +1,9 @@
 + <b>Author: Moole Muralidhara Reddy</b></br>
 + <b>Email:</b> techworldwithmurali@gmail.com</br>
 + <b>Website:</b> techworldwithmurali.com , devopsbymurali.com</br>
-+ <b>Description:</b> Below are the steps outlined for Jenkins freestyle - Deploy to EKS fetching image from Jfrog repository.</br>
++ <b>Description:</b> Below are the steps outlined for Jenkins pipeline - Deploy to EKS fetching image from Jfrog repository.</br>
 
-## Jenkins freestyle - Deploy to EKS fetching image from Jfrog repository.
+## Jenkins pipeline - Deploy to EKS fetching image from Jfrog repository.
 
 ### Prerequisites:
   + Jenkins is installed
@@ -35,7 +35,7 @@ GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-jfrog-jenkinsfile
 ```
 
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
+### Step 6: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -78,8 +78,8 @@ spec:
   selector:
     app: web-app
 ```
-### Step 6: Write the Jenkinsfile
-  + ### Step 6.1: Clone the repository 
+### Step 7: Write the Jenkinsfile
+  + ### Step 7.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -87,7 +87,7 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 6.2: Build the code
+  + ### Step 7.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -95,7 +95,7 @@ stage('Build') {
             }
         }
 ```
-  + ### 6.3: Build Docker Image
+  + ### Step 7.3: Build Docker Image
 ```xml
 stage('Build Docker Image') {
             steps {
@@ -109,7 +109,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### Push Docker Image to Jfrog artifactory
++ ### Step 7.4: Push Docker Image to Jfrog artifactory
 ```xml
 stage('Push Docker Image') {
             steps {
@@ -124,7 +124,7 @@ stage('Push Docker Image') {
             
         }
 ```
-+ ### Deploy to AWS EKS
++ ### Step 7.5: Deploy to AWS EKS
 ```xml
 stage('Deployto AWS EKS') {
             steps {
@@ -145,11 +145,11 @@ stage('Deployto AWS EKS') {
         }
 ```
 
-### Step 16:Verify whether pods are running or not
+### Step 8:Verify whether pods are running or not
 ```xml
 kubectl get pods -A
 ```
-### Step 17: Create a secret file for Jfrog credenatils
+### Step 9: Create a secret file for Jfrog credenatils
 ```xml
 kubectl create secret docker-registry jfrogcred \
 --docker-server=https://a0twcdxxwofaz.jfrog.io \
@@ -160,8 +160,8 @@ kubectl create secret docker-registry jfrogcred \
   imagePullSecrets:
   - name: jfrogcred
 ```
-### Step 18: Access java application through NodePort.
+### Step 10: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
-#### Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Freestyle job.
+#### Congratulations. You have successfully Deployed the java application in Kubernetes(AWS EKS) through Jenkins Pipeline job.
