@@ -43,7 +43,7 @@ CMD ["catalina.sh", "run"]
 ```xml
 stage('Clone') {
             steps {
-                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
+                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
