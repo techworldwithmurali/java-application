@@ -19,3 +19,5 @@ spec:
         image: web-app:1
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+      - name: dockerhubcred
