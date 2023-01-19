@@ -6,9 +6,11 @@
 ## Jenkins Freestyle - Deploy to EKS fetching image from DockerHub.
 
 ### Prerequisites:
-+ Jenkins is installed
++  Jenkins is installed
 +  Docker is installed
 +  AWS EKS is created
++  kubectl is installed
++  AWS CLI installed
 +  Github token generate
 
 ### Step 1: Install and configure the jenkins plugins
