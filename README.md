@@ -10,6 +10,8 @@
   + Docker is installed
   + Github token generate
   + AWs EKS is created
+  + kubectl is installed
+  + ZAWS CLI is installed
 
 ### Step 1: Install and configure the jenkins plugins
   + git
