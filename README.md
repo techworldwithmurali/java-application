@@ -46,8 +46,8 @@ CMD ["catalina.sh", "run"]
 ```
 ### Step 7: Build and tag the Docker image
 ```xml
-docker build . --tag web-application:latest
-docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+docker build . --tag web-application:$BUILD_NUMBER
+docker tag web-application:$BUILD_NUMBER 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
 ```
 ### Step 11: Configure the AWS credenatils in Jenkins Server
 ```xml
@@ -59,7 +59,7 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 ```
 ### Step 9: Push to AWS ECR
 ```xml
-docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
 ```
 ### Step 10: Verify whether docker image is pushed or not in AWS ECR
 ### Step 12: Write the Kubernetes Deployment and Service manifest files.
@@ -105,18 +105,25 @@ spec:
   selector:
     app: web-app
 ```
-### Step 12: Connect to the AWS EKS Cluster
+### Step 12: Configure the AWS credenatils
+```xml
+export AWS_ACCESS_KEY_ID="AKIARSNVB6PUUCT7RT74"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_DEFAULT_REGION="us-east-1"
+```
+
+### Step 13: Connect to the AWS EKS Cluster
 ```xml
 aws eks update-kubeconfig --name dev-cluster --region us-east-1
 ```
-### Step 13: Apply the Kubernetes manifest files
+### Step 14: Apply the Kubernetes manifest files
 ```xml
 cd kubernetes
 kubectl apply -f .
 
-kubectl set image deployment/web-application web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+kubectl set image deployment/web-application web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
 ```
-### Step 14:Verify whether pods are running or not
+### Step 15:Verify whether pods are running or not
 ```xml
 kubectl get pods -A
 ```
