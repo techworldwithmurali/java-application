@@ -84,7 +84,7 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: web-app:1
+        image: 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
         ports:
         - containerPort: 8080
 ```
