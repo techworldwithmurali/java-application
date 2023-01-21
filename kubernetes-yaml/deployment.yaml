@@ -14,8 +14,6 @@ spec:
       labels:
         app: web-app
     spec:
-      imagePullSecrets:
-      - name: regcred
       containers:
       - name: web-application
         image: mmreddy.jfrog.io/demo-app/my-image:latest
