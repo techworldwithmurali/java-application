@@ -64,7 +64,9 @@ docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:$BUILD_NUMBER
 ### Step 11: Verify whether docker image is pushed or not in Jfrog Artifactory
 ### Step 12: Configure the AWS credenatils in Jenkins Server
 ```xml
-aws configure
+export AWS_ACCESS_KEY_ID="AKIARSNVB6PUUCT7RT74"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_DEFAULT_REGION="us-east-1"
 ```
 ### Step 13: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
