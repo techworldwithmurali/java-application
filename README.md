@@ -129,7 +129,7 @@ kubectl get pods -A
 kubectl create secret docker-registry jfrogcred \
 --docker-server=https://a0twcdxxwofaz.jfrog.io \
 --docker-username=moole \
---docker-password=Techworld@2580
+--docker-password=Techworld@2580 --dry-run=client -o yaml > secret.yaml
 ```
 ```xml
   imagePullSecrets:
