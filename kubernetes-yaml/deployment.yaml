@@ -19,3 +19,5 @@ spec:
         image: a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+      - name: jfrogcred
