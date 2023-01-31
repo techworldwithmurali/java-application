@@ -21,7 +21,7 @@ Name: web-application
 
 ### Step 3: Create the Jenkins Pipeline job
 ```xml
-Job Name: pushing-docker-image-to-dockerhub
+Job Name: pushing-docker-image-to-dockerhub-jenkins-pipeline
 ```
 ### Step 4: Configure the git repository
 ```xml
