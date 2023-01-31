@@ -17,7 +17,7 @@
   
 ### Step 2: Create the Jenkins Pipeline job
 ```xml
-Job Name: static-code-analysis
+Job Name: static-code-analysis-jenkins-piepline
 ```
 ### Step 3: Configure the git repository
 ```xml
@@ -37,7 +37,7 @@ stage('Clone') {
 ```xml
 stage('Build and Analysis') {
             steps {
-                sh 'mvn clean verify sonar:sonar -Dsonar.host.url=http://your_sonar_url -Dsonar.login=your_sonar_token'
+                sh 'mvn clean verify sonar:sonar -Dsonar.host.url=http://44.204.117.229:9000 -Dsonar.login=85f51274cf3f12ee22e2a760bf1d9d9a61f5a37a'
             }
         }
 ```
