@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools{
+        maven "Maven3.6.7"
+    }
     stages {
       stage('Clone the repository'){
         steps{
