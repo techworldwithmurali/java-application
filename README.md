@@ -17,7 +17,7 @@
   
 ### Step 2: Create the Jenkins Pipeline job
 ```xml
-Job Name: build-and-deploy-to-tomcat
+Job Name: build-and-deploy-to-tomcat-jenkins-pipeline
 ```
 ### Step 5: Configure the git repository
 ```xml
@@ -43,9 +43,9 @@ stage('Build') {
 ```
   + ### 6.3: Deploy the war file in Tomcat
 ```xml
-stage('Deploy') {
+stage('Deploy to tomcat') {
             steps {
-                sh 'mvn tomcat7:deploy -DskipTests=true -Dmaven.tomcat.url=http://your_tomcat_url:port/manager/text -Dmaven.tomcat.username=your_username -Dmaven.tomcat.password=your_password'
+                sh 'mvn tomcat7:deploy -DskipTests=true -Dmaven.tomcat.url=http://100.25.166.179:8080/manager/text -Dmaven.tomcat.username=your_username -Dmaven.tomcat.password=your_password'
             }
         }
   
