@@ -17,7 +17,17 @@ pipeline {
             }
         }    
       
-      
+ stage('Build Docker Image') {
+            steps {
+                sh '''
+               docker build . --tag web-application:latest
+               docker tag web-application:latest mmreddy424/web-application:latest
+                
+                '''
+                
+            }
+        }
+        
       
     }
 }
