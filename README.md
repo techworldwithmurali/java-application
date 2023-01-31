@@ -27,9 +27,9 @@ Branch : build-and-deploy-to-tomcat-jenkinsfile
 ### Step 6: Write the Jenkinsfile
   + ### Step 6.1: Clone the repository 
 ```xml
-stage('Clone') {
+stage('Clone the repository') {
             steps {
-                git branch: 'build-and-deploy-to-tomcat-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+               git branch: 'build-and-deploy-to-tomcat-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
@@ -45,7 +45,8 @@ stage('Build') {
 ```xml
 stage('Deploy to tomcat') {
             steps {
-                sh 'mvn tomcat7:deploy -DskipTests=true -Dmaven.tomcat.url=http://100.25.166.179:8080/manager/text -Dmaven.tomcat.username=your_username -Dmaven.tomcat.password=your_password'
+            deploy adapters: [tomcat7(credentialsId: 'Tomcat-7-cred', path: '', url: 'http://100.25.166.179:8080')], contextPath: null, war: '**/*.war'
+                
             }
         }
   
