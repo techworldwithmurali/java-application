@@ -62,8 +62,8 @@ stage('Build') {
 stage('Build Docker Image') {
             steps {
                 sh '''
-              docker build . --tag web-application:latest
-              docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+              docker build . --tag web-application:$BUILD_NUMBER
+              docker tag web-application:$BUILD_NUMBER 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
                 
                 '''
                 
@@ -79,7 +79,7 @@ stage('Push Docker Image') {
        
                     sh '''
                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
-                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
                     '''
                 }
             } 
