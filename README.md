@@ -35,7 +35,7 @@ CMD ["catalina.sh", "run"]
 ```
 ### Step 5: Create the Jenkins pipeline job
 ```xml
-Job Name: pushing-docker-image-to-jfrog
+Job Name: pushing-docker-image-to-jfrog-jenkins-pipeline
 ```
 
 ### Step 6: Configure the git repository
