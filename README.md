@@ -24,14 +24,9 @@ Name: web-application
 
 ### Step 3: Create the Jenkins Pipeline job
 ```xml
-Job Name: pushing-docker-image-to-ecr
+Job Name: pushing-docker-image-to-ecr-jenkins-pipeline
 ```
-### Step 4: Configure the git repository
-```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-ecr-jenkinsfile
-```
-### Step 5: Write the Dockerfile
+### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -40,12 +35,18 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
+### Step 5: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : pushing-docker-image-to-ecr-jenkinsfile
+```
+
 ### Step 6: Write the Jenkinsfile
   + ### Step 6.1: Clone the repository 
 ```xml
-stage('Clone') {
+stage('Clone the repository') {
             steps {
-                git branch: 'pushing-docker-image-to-ecr-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+               git branch: 'build-and-deploy-to-tomcat-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
