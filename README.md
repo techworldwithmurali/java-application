@@ -24,18 +24,7 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 4: Create the Jenkins pipeline job
-```xml
-Job Name: pushing-docker-image-to-jfrog
-```
-
-### Step 5: Configure the git repository
-```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-jfrog-jenkinsfile
-```
-
-### Step 6: Write the Dockerfile
+### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -44,12 +33,24 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
+### Step 5: Create the Jenkins pipeline job
+```xml
+Job Name: pushing-docker-image-to-jfrog
+```
+
+### Step 6: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : pushing-docker-image-to-jfrog-jenkinsfile
+```
+
+
 ### Step 7: Write the Jenkinsfile
   + ### Step 7.1: Clone the repository 
 ```xml
-stage('Clone') {
+stage('Clone the repository') {
             steps {
-                git branch: 'pushing-docker-image-to-jfrog-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+               git branch: 'pushing-docker-image-to-ecr-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
@@ -67,7 +68,7 @@ stage('Build Docker Image') {
             steps {
                 sh '''
               docker build . --tag web-app:latest
-              docker tag web-app:latest a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+              docker tag web-app:latest a0alrhqhzjivs.jfrog.io/web-application/web-app:latest
                 
                 '''
                 
@@ -82,8 +83,8 @@ stage('Push Docker Image') {
                   withCredentials([usernamePassword(credentialsId: 'jfrog_crdenatils', passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
        
                     sh '''
-                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD
-                        docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD a0alrhqhzjivs.jfrog.io
+                        docker push a0alrhqhzjivs.jfrog.io/web-application/web-app:latest
                     '''
                 }
             } 
