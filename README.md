@@ -46,7 +46,7 @@ Branch : pushing-docker-image-to-ecr-jenkinsfile
 ```xml
 stage('Clone the repository') {
             steps {
-               git branch: 'build-and-deploy-to-tomcat-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+               git branch: 'pushing-docker-image-to-ecr-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
             }
         }
 ```
