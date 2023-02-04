@@ -29,6 +29,7 @@ pipeline {
         }  
       
       stage('Push Docker Image') {
+          steps{
  withAWS(credentials: 'AWS', region: 'us-east-1') {
        
                     sh '''
@@ -38,7 +39,7 @@ pipeline {
                 }
             } 
             
-      
+      }
       
     }
 }
