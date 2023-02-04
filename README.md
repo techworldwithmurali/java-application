@@ -21,12 +21,7 @@
 ```xml
 Name: web-application
 ```
-
-### Step 3: Create the Jenkins Pipeline job
-```xml
-Job Name: pushing-docker-image-to-ecr-jenkins-pipeline
-```
-### Step 4: Write the Dockerfile
+### Step 3: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -34,6 +29,10 @@ WORKDIR /usr/local/tomcat
 ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
+```
+### Step 4: Create the Jenkins Pipeline job
+```xml
+Job Name: pushing-docker-image-to-ecr-jenkins-pipeline
 ```
 ### Step 5: Configure the git repository
 ```xml
