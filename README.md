@@ -21,18 +21,7 @@
 ```xml
 Name: web-application
 ```
-
-### Step 3: Create the Jenkins Free style job
-```xml
-Job Name: deploy-to-eks-ecr-jenkinsfile
-```
-### Step 4: Configure the git repository
-```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : deploy-to-eks-ecr-jenkinsfile
-```
-
-### Step 5: Write the Dockerfile
+### Step 3: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -40,8 +29,9 @@ WORKDIR /usr/local/tomcat
 ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
+
 ```
-### Step 6: Write the Kubernetes Deployment and Service manifest files.
+### Step 4: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -63,7 +53,7 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: web-app:1
+        image: 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
         ports:
         - containerPort: 8080
 ```
@@ -85,14 +75,25 @@ spec:
     app: web-app
 ```
 
+### Step 5: Create the Jenkins Free style job
+```xml
+Job Name: deploy-to-eks-ecr-jenkinsfile
+```
+### Step 6: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : deploy-to-eks-ecr-jenkinsfile
+```
+
 ### Step 7: Write the Jenkinsfile
   + ### Step 7.1: Clone the repository 
 ```xml
-stage('Clone') {
-            steps {
-                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/your_project.git'
-            }
-        }
+stage('Clone the repository'){
+        steps{
+          git branch: 'deploy-to-eks-ecr-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+          
+        } 
+      }
 ```
   + ### Step 7.2: Build the code
 ```xml
