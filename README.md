@@ -9,26 +9,19 @@
 + Jenkins is installed
 +  Docker is installed
 +  Github token generate
++  AWS EKS Cluster is created
++  AWS IAM User user created
 
 ### Step 1: Install and configure the jenkins plugins
  + git
  + maven integration
+ + Pipeline: AWS Steps
 
 ### Step 2: Create the Docker repository
 ```xml
 Name: web-application
 ```
-
-### Step 3: Create the Jenkins Pipeline job
-```xml
-Job Name: pushing-docker-image-to-dockerhub
-```
-### Step 4: Configure the git repository
-```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : pushing-docker-image-to-dockerhub-jenkinsfile
-```
-### Step 6: Write the Dockerfile
+### Step 3: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -36,6 +29,7 @@ WORKDIR /usr/local/tomcat
 ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
+
 ```
 ### Step 12: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
@@ -59,7 +53,7 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: web-app:1
+        image: mmreddy424/web-application:latest
         ports:
         - containerPort: 8080
 ```
@@ -80,6 +74,36 @@ spec:
   selector:
     app: web-app
 ```
+### Step 15: Create a secret yaml file for Dockerhub credenatils using kubectl
+```xml
+ kubectl create secret docker-registry dockerhubcred --docker-server=https://index.docker.io/v1/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com --dry-run=client -o yaml > secret.yaml
+```
+Output:
+```xml
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJtbXJlZGR5NDI0IiwicGFzc3dvcmQiOiJEb2NrZXJAMTIzIiwiZW1haWwiOiJ0ZWNod29ybGR3aXRobXVyYWxpQGdtYWlsLmNvbSIsImF1dGgiOiJiVzF5WldSa2VUUXlORHBFYjJOclpYSkFNVEl6In19fQ==
+kind: Secret
+metadata:
+  name: dockerhubcred
+type: kubernetes.io/dockerconfigjson
+
+```
+```xml
+imagePullSecrets:
+- name: dockerhubcred
+```
+### Step 3: Create the Jenkins Pipeline job
+```xml
+Job Name: deploy-to-eks-dockerhub-jenkins-pipeline
+```
+### Step 4: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : deploy-to-eks-dockerhub-jenkinsfile
+```
+
+
 ### Step 6: Write the Jenkinsfile
   + ### Step 6.1: Clone the repository 
 ```xml
