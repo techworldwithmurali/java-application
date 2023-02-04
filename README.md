@@ -113,11 +113,12 @@ Branch : deploy-to-eks-dockerhub-jenkinsfile
 ### Step 8: Write the Jenkinsfile
   + ### Step 8.1: Clone the repository 
 ```xml
-stage('Clone') {
-            steps {
-                git branch: 'deploy-to-eks-dockerhub-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
-            }
-        }
+stage('Clone the repository'){
+        steps{
+          git branch: 'deploy-to-eks-dockerhub-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+          
+        } 
+      }
 ```
   + ### Step 8.2: Build the code
 ```xml
