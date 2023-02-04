@@ -6,7 +6,7 @@
 ## Jenkins Pipeline - Deploy to EKS fetching image from DockerHub.
 
 ### Prerequisites:
-+ Jenkins is installed
++  Jenkins is installed
 +  Docker is installed
 +  Github token generate
 +  AWS EKS Cluster is created
@@ -31,7 +31,7 @@ EXPOSE 8080
 CMD ["catalina.sh", "run"]
 
 ```
-### Step 12: Write the Kubernetes Deployment and Service manifest files.
+### Step 4: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -74,7 +74,7 @@ spec:
   selector:
     app: web-app
 ```
-### Step 15: Create a secret yaml file for Dockerhub credenatils using kubectl
+### Step 5: Create a secret yaml file for Dockerhub credenatils using kubectl
 ```xml
  kubectl create secret docker-registry dockerhubcred --docker-server=https://index.docker.io/v1/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com --dry-run=client -o yaml > secret.yaml
 ```
@@ -93,19 +93,19 @@ type: kubernetes.io/dockerconfigjson
 imagePullSecrets:
 - name: dockerhubcred
 ```
-### Step 3: Create the Jenkins Pipeline job
+### Step 6: Create the Jenkins Pipeline job
 ```xml
 Job Name: deploy-to-eks-dockerhub-jenkins-pipeline
 ```
-### Step 4: Configure the git repository
+### Step 7: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-dockerhub-jenkinsfile
 ```
 
 
-### Step 6: Write the Jenkinsfile
-  + ### Step 6.1: Clone the repository 
+### Step 8: Write the Jenkinsfile
+  + ### Step 8.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -113,7 +113,7 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 6.2: Build the code
+  + ### Step 8.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -121,13 +121,13 @@ stage('Build') {
             }
         }
 ```
-  + ### 6.3: Build Docker Image
+  + ### 8.3: Build Docker Image
 ```xml
 stage('Build Docker Image') {
             steps {
                 sh '''
-               docker build . --tag web-application:latest
-               docker tag web-application:latest mmreddy424/web-application:latest
+               docker build . --tag web-application:$BUILD_NUMBER
+               docker tag web-application:$BUILD_NUMBER mmreddy424/web-application:$BUILD_NUMBER
                 
                 '''
                 
@@ -135,7 +135,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### Push Docker Image
++ ### 8.4 Push Docker Image
 ```xml
 stage('Push Docker Image') {
             steps {
@@ -143,46 +143,37 @@ stage('Push Docker Image') {
        
                     sh '''
                     docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-                        docker push mmreddy424/web-application:latest
+                        docker push mmreddy424/web-application:$BUILD_NUMBER
                     '''
                 }
             } 
             
         }
 ```
-+ ### Deploy to AWS EKS
++ ### 8.5 Deploy to AWS EKS
 ```xml
 stage('Deployto AWS EKS') {
             steps {
                 // configure AWS credentials
                withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
 
-                    // configure kubectl to access EKS cluster
-                    sh 'aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+                   
+                    sh '''
+                     // configure kubectl to access EKS cluster
+                     aws eks update-kubeconfig --name dev-cluster --region us-east-1'
 
                     // apply YAML files to EKS cluster
-                    sh ' kubectl apply -f kubernetes-yaml/deployment.yaml '
-                    sh 'kubectl apply -f kubernetes-yaml/service.yaml'
-                    sh 'kubectl set image deployment/web-app web-application=mmreddy424/web-application:latest'
+                     cd kubernetes-yaml
+                    sh ' kubectl apply -f . '
+
+                    sh 'kubectl set image deployment/web-app web-application=mmreddy424/web-application:$BUILD_NUMBER'
                 }
            
         }
             
         }
 ```
-### Step 15: Create a secret file for Dockerhub credenatils
-```xml
-kubectl create secret docker-registry dockerhubcred \
---docker-server=https://index.docker.io/v1/ \
---docker-username=mmreddy424 \
---docker-password=Docker@123 \
---docker-email=techworldwithmurali@gmail.com
-```
-```xml
-imagePullSecrets:
-- name: dockerhubcred
-```
-### Step 16: Access java application through NodePort.
+### Step 9: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
