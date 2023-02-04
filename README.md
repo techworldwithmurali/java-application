@@ -9,8 +9,10 @@
 +  Jenkins is installed
 +  Docker is installed
 +  Github token generate
++  AWS CLI is installed
 +  AWS EKS Cluster is created
 +  AWS IAM User user created
++  kubectl is installed
 
 ### Step 1: Install and configure the jenkins plugins
  + git
@@ -159,18 +161,15 @@ stage('Push Docker Image') {
 stage('Deployto AWS EKS') {
             steps {
                 // configure AWS credentials
-               withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
-
-                   
+               withAWS(credentials: 'AWS', region: 'us-east-1') { 
                     sh '''
                      // configure kubectl to access EKS cluster
-                     aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+                     aws eks update-kubeconfig --name dev-cluster --region us-east-1
 
-                    // apply YAML files to EKS cluster
+                    // Apply the kubernetes YAML files to EKS cluster
                      cd kubernetes-yaml
-                    sh ' kubectl apply -f . '
-
-                    sh 'kubectl set image deployment/web-app web-application=mmreddy424/web-application:$BUILD_NUMBER'
+                    kubectl apply -f . 
+                    kubectl set image deployment/web-app web-application=mmreddy424/web-application:$BUILD_NUMBER
                 }
            
         }
