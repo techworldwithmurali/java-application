@@ -76,9 +76,13 @@ spec:
 ```
 ### Step 5: Create a secret yaml file for Dockerhub credenatils using kubectl
 ```xml
- kubectl create secret docker-registry dockerhubcred --docker-server=https://index.docker.io/v1/ --docker-username=mmreddy424 --docker-password=Docker@123 --docker-email=techworldwithmurali@gmail.com --dry-run=client -o yaml > secret.yaml
+ kubectl create secret docker-registry dockerhubcred \
+--docker-server=https://index.docker.io/v1/ \
+--docker-username=mmreddy424 \
+--docker-password=Docker@123 \
+--docker-email=techworldwithmurali@gmail.com --dry-run=client -o yaml > secret.yaml
 ```
-Output:
+###### Output:
 ```xml
 apiVersion: v1
 data:
