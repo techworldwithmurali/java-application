@@ -75,6 +75,7 @@ stage('Build Docker Image') {
 
 ```xml
 stage('Push Docker Image') {
+steps{
  withAWS(credentials: 'AWS', region: 'us-east-1') {
        
                     sh '''
@@ -83,7 +84,7 @@ stage('Push Docker Image') {
                     '''
                 }
             } 
-            
+
         }
 ```
 
