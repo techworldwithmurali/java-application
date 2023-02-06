@@ -48,6 +48,8 @@ pipeline {
                 cd kubernetes-yaml
                 kubectl apply -f .
                 
+                kubectl set image deployment/web-app web-application=mmreddy424/web-application:$BUILD_NUMBER
+                
   
   '''
                     
