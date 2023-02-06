@@ -45,6 +45,9 @@ pipeline {
                 withAWS(credentials: 'AWS', region: 'us-east-1') {
   sh '''
                 aws eks update-kubeconfig --name dev-cluster --region us-east-1
+                cd kubernetes-yaml
+                kubectl apply -f .
+                
   
   '''
                     
