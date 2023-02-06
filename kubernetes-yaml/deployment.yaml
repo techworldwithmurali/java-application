@@ -19,3 +19,5 @@ spec:
         image: mmreddy424/web-application:latest
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+      - name: dockerhubcred
