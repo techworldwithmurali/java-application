@@ -39,6 +39,22 @@ pipeline {
             }
             
         }
+        
+        stage('Deployto AWS EKS') {
+            steps {
+                withAWS(credentials: 'AWS', region: 'us-east-1') {
+  sh '''
+                aws eks update-kubeconfig --name dev-cluster --region us-east-1
+  
+  '''
+                    
+                    
+}
+                
+            }
+        }
+        
+        
       
     }
 }
