@@ -108,8 +108,8 @@ stage('Build') {
 stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build . --tag web-app:latest
-              docker tag web-app:latest a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+                docker build . --tag web-app:$BUILD_NUMBER
+              docker tag web-app:latest devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
                 
                 '''
                 
@@ -124,8 +124,8 @@ stage('Push Docker Image') {
                   withCredentials([usernamePassword(credentialsId: 'jfrog_crdenatils', passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
        
                     sh '''
-                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD a0twcdxxwofaz.jfrog.io
-                        docker push a0twcdxxwofaz.jfrog.io/web-application/web-app:latest
+                    docker login -u $JFROG_USERNAME -p $JFROG_PASSWORD devopsmurali.jfrog.io
+                        docker push devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
                     '''
                 }
             } 
@@ -137,15 +137,17 @@ stage('Push Docker Image') {
 stage('Deployto AWS EKS') {
             steps {
                 // configure AWS credentials
-               withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
+               withAWS(credentials: 'AWS', region: 'us-east-1') {
 
-                    // configure kubectl to access EKS cluster
-                    sh 'aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+                    // Connect to the EKS cluster
+                    sh '''
+                     aws eks update-kubeconfig --name dev-cluster --region us-east-1'
 
                     // apply YAML files to EKS cluster
-                    sh ' kubectl apply -f kubernetes-yaml/deployment.yaml '
-                    sh 'kubectl apply -f kubernetes-yaml/service.yaml'
-                    sh 'kubectl set image deployment/web-app web-application=a0twcdxxwofaz.jfrog.io/web-application/web-app:latest'
+                      cd kubernetes-yaml
+                      kubectl apply -f .
+                      kubectl set image deployment/web-app web-application=devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
+                    '''
                 }
            
         }
