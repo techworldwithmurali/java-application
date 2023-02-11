@@ -33,11 +33,11 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 4.2: Build and Static code Analysis
+  + ### Step 9.2: Build the code
 ```xml
-stage('Build and Analysis') {
+stage('Build') {
             steps {
-                sh 'mvn clean verify sonar:sonar -Dsonar.host.url=http://44.204.117.229:9000 -Dsonar.login=85f51274cf3f12ee22e2a760bf1d9d9a61f5a37a'
+                sh 'mvn clean install'
             }
         }
 ```
