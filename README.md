@@ -76,6 +76,29 @@ spec:
   selector:
     app: web-app
 ```
+### Step 5: Create a secret yaml file for Jfrog  credenatils using kubectl
+```xml
+ kubectl create secret docker-registry jfrogcred \
+--docker-server=https://devopsmurali.jfrog.io \
+--docker-username=moole \
+--docker-password=Techworld@2580 \
+--dry-run=client -o yaml > secret.yaml
+```
+###### Output:
+```xml
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2Rldm9wc211cmFsaS5qZnJvZy5pbyI6eyJ1c2VybmFtZSI6Im1vb2xlIiwicGFzc3dvcmQiOiJUZWNod29ybGRAMjU4MCIsImF1dGgiOiJiVzl2YkdVNlZHVmphSGR2Y214a1FESTFPREE9In19fQ==
+kind: Secret
+metadata:
+  name: jfrogcred
+type: kubernetes.io/dockerconfigjson
+```
+```xml
+imagePullSecrets:
+- name: jfrogcred
+```
+
 ### Step 4: Create the Jenkins Pipeline job
 ```xml
 Job Name: deploy-to-eks-jfrog-jenkins-pipeline
