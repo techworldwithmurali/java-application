@@ -17,6 +17,7 @@
 ### Step 1: Install and configure the jenkins plugins
  + git
  + maven integration
+ + Pipeline: AWS Steps
 
 ### Step 2: Create the AWS ECR  repository
 ```xml
