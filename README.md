@@ -110,8 +110,8 @@ stage('Build') {
 stage('Build Docker Image') {
             steps {
                 sh '''
-              docker build . --tag web-application:latest
-              docker tag web-application:latest 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+              docker build . --tag web-application:$BUILD_NUMBER
+              docker tag web-application:$BUILD_NUMBER 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
                 
                 '''
                 
@@ -127,7 +127,7 @@ stage('Push Docker Image') {
        
                     sh '''
                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
-                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest
+                   docker push 108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
                     '''
                 }
             } 
@@ -141,13 +141,15 @@ stage('Deployto AWS EKS') {
                 // configure AWS credentials
                withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
 
-                    // configure kubectl to access EKS cluster
-                    sh 'aws eks update-kubeconfig --name dev-cluster --region us-east-1'
+                   // Connect to the EKS cluster
+                    sh '''
+                     aws eks update-kubeconfig --name dev-cluster --region us-east-1'
 
                     // apply YAML files to EKS cluster
-                    sh ' kubectl apply -f kubernetes-yaml/deployment.yaml '
-                    sh 'kubectl apply -f kubernetes-yaml/service.yaml'
-                    sh 'kubectl set image deployment/web-app web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:latest'
+                      cd kubernetes-yaml
+                      kubectl apply -f .
+                      kubectl set image deployment/web-app web-application=108290765801.dkr.ecr.us-east-1.amazonaws.com/web-application:$BUILD_NUMBER
+                    '''
                 }
            
         }
