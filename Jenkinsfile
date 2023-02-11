@@ -51,6 +51,7 @@ pipeline {
      
                       cd kubernetes-yaml
                       kubectl apply -f .
+                      kubectl set image deployment/web-app web-application=devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
                  
                     '''
                 }
