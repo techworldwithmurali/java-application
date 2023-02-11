@@ -114,8 +114,8 @@ GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-jfrog-jenkinsfile
 ```
 
-### Step 8: Write the Jenkinsfile
-  + ### Step 8.1: Clone the repository 
+### Step 9: Write the Jenkinsfile
+  + ### Step 9.1: Clone the repository 
 ```xml
 stage('Clone') {
             steps {
@@ -123,7 +123,7 @@ stage('Clone') {
             }
         }
 ```
-  + ### Step 8.2: Build the code
+  + ### Step 9.2: Build the code
 ```xml
 stage('Build') {
             steps {
@@ -131,7 +131,7 @@ stage('Build') {
             }
         }
 ```
-  + ### Step 8.3: Build Docker Image
+  + ### Step 9.3: Build Docker Image
 ```xml
 stage('Build Docker Image') {
             steps {
@@ -145,7 +145,7 @@ stage('Build Docker Image') {
         }
    
 ```
-+ ### Step 8.4: Push Docker Image to Jfrog artifactory
++ ### Step 9.4: Push Docker Image to Jfrog artifactory
 ```xml
 stage('Push Docker Image') {
             steps {
@@ -160,7 +160,7 @@ stage('Push Docker Image') {
             
         }
 ```
-+ ### Step 8.5: Deploy to AWS EKS
++ ### Step 9.5: Deploy to AWS EKS
 ```xml
 stage('Deployto AWS EKS') {
             steps {
@@ -183,7 +183,7 @@ stage('Deployto AWS EKS') {
         }
 ```
 
-### Step 9: Access java application through NodePort.
+### Step 10: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
