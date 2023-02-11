@@ -50,7 +50,7 @@ pipeline {
                     sh '''
                      aws eks update-kubeconfig --name dev-cluster --region us-east-1
                      
-                     //  Apply YAML files to EKS cluster
+           
                       cd kubernetes-yaml
                       kubectl apply -f .
                     '''
