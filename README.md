@@ -77,9 +77,9 @@ spec:
     app: web-app
 ```
 
-### Step 5: Create the Jenkins Free style job
+### Step 5: Create the Jenkins Pipeline job
 ```xml
-Job Name: deploy-to-eks-ecr-jenkinsfile
+Job Name: deploy-to-eks-ecr-jenkins-pipeline
 ```
 ### Step 6: Configure the git repository
 ```xml
