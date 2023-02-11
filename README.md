@@ -137,7 +137,7 @@ stage('Build Docker Image') {
             steps {
                 sh '''
                 docker build . --tag web-app:$BUILD_NUMBER
-              docker tag web-app:latest devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
+              docker tag web-app:$BUILD_NUMBER devopsmurali.jfrog.io/web-application/web-app:$BUILD_NUMBER
                 
                 '''
                 
