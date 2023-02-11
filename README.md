@@ -6,14 +6,18 @@
 ## Jenkins pipeline - Deploy to EKS fetching image from Jfrog repository.
 
 ### Prerequisites:
-  + Jenkins is installed
-  + Docker is installed
-  + Github token generate
-  + AWs EKS is created
++  Jenkins is installed
++  Docker is installed
++  Github token generate
++  AWS CLI is installed
++  AWS EKS Cluster is created
++  AWS IAM User user created
++  kubectl is installed
 
 ### Step 1: Install and configure the jenkins plugins
   + git
   + maven integration
+  + Pipeline: AWS Steps
   
 ### Step 2: Create the user in Jfrog
 ```xml
