@@ -123,7 +123,7 @@ stage('Build Docker Image') {
 
 ```xml
 stage('Push Docker Image') {
- withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
+ withAWS(credentials: 'AWS', region: 'us-east-1') {
        
                     sh '''
                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-east-1.amazonaws.com
@@ -139,7 +139,7 @@ stage('Push Docker Image') {
 stage('Deployto AWS EKS') {
             steps {
                 // configure AWS credentials
-               withAWS(credentials: 'aws-dev-credentials', region: 'us-east-1') {
+               withAWS(credentials: 'AWS', region: 'us-east-1') {
 
                    // Connect to the EKS cluster
                     sh '''
