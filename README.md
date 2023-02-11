@@ -28,7 +28,7 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 6: Write the Dockerfile
+### Step 4: Write the Dockerfile
 ```xml
 FROM tomcat:9
 RUN apt update
@@ -37,7 +37,7 @@ ADD target/*.war webapps/
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 ```
-### Step 7: Write the Kubernetes Deployment and Service manifest files.
+### Step 5: Write the Kubernetes Deployment and Service manifest files.
 ##### deployment.yaml
 ```xml
 
@@ -80,7 +80,7 @@ spec:
   selector:
     app: web-app
 ```
-### Step 5: Create a secret yaml file for Jfrog  credenatils using kubectl
+### Step 6: Create a secret yaml file for Jfrog  credenatils using kubectl
 ```xml
  kubectl create secret docker-registry jfrogcred \
 --docker-server=https://devopsmurali.jfrog.io \
@@ -103,12 +103,12 @@ imagePullSecrets:
 - name: jfrogcred
 ```
 
-### Step 4: Create the Jenkins Pipeline job
+### Step 7: Create the Jenkins Pipeline job
 ```xml
 Job Name: deploy-to-eks-jfrog-jenkins-pipeline
 ```
 
-### Step 5: Configure the git repository
+### Step 8: Configure the git repository
 ```xml
 GitHub Url: https://github.com/techworldwithmurali/java-application.git
 Branch : deploy-to-eks-jfrog-jenkinsfile
@@ -183,22 +183,7 @@ stage('Deployto AWS EKS') {
         }
 ```
 
-### Step 8:Verify whether pods are running or not
-```xml
-kubectl get pods -A
-```
-### Step 9: Create a secret file for Jfrog credenatils
-```xml
-kubectl create secret docker-registry jfrogcred \
---docker-server=https://a0twcdxxwofaz.jfrog.io \
---docker-username=moole \
---docker-password=Techworld@2580
-```
-```xml
-  imagePullSecrets:
-  - name: jfrogcred
-```
-### Step 10: Access java application through NodePort.
+### Step 9: Access java application through NodePort.
 ```xml
 http://Node-IP:port/web-application
 ```
