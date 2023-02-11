@@ -24,16 +24,6 @@ Password: Techworld@2580
 ```xml
 Repository Name: web-application
 ```
-### Step 4: Create the Jenkins Pipeline job
-```xml
-Job Name: deploy-to-eks-jfrog-jenkinsfile
-```
-
-### Step 5: Configure the git repository
-```xml
-GitHub Url: https://github.com/techworldwithmurali/java-application.git
-Branch : deploy-to-eks-jfrog-jenkinsfile
-```
 ### Step 6: Write the Dockerfile
 ```xml
 FROM tomcat:9
@@ -65,7 +55,7 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: web-app:1
+        image: devopsmurali.jfrog.io/web-application/web-app:latest
         ports:
         - containerPort: 8080
 ```
@@ -86,6 +76,17 @@ spec:
   selector:
     app: web-app
 ```
+### Step 4: Create the Jenkins Pipeline job
+```xml
+Job Name: deploy-to-eks-jfrog-jenkins-pipeline
+```
+
+### Step 5: Configure the git repository
+```xml
+GitHub Url: https://github.com/techworldwithmurali/java-application.git
+Branch : deploy-to-eks-jfrog-jenkinsfile
+```
+
 ### Step 8: Write the Jenkinsfile
   + ### Step 8.1: Clone the repository 
 ```xml
