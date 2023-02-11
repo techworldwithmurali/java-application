@@ -6,7 +6,7 @@ pipeline {
     stages {
       stage('Clone the repository'){
         steps{
-          git branch: 'pushing-docker-image-to-ecr-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+          git branch: 'deploy-to-eks-ecr-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
           
         } 
       }
