@@ -12,6 +12,7 @@
 + AWS EKS is created
 + IAM user is created.  User name: dev
 + Github token generate
++ kubectl is installed
 
 ### Step 1: Install and configure the jenkins plugins
  + git
