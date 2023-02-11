@@ -18,6 +18,6 @@ spec:
       - name: regcred
       containers:
       - name: web-application
-        image: mmreddy.jfrog.io/demo-app/my-image:latest
+        image: devopsmurali.jfrog.io/web-application/web-app:latest
         ports:
         - containerPort: 8080
