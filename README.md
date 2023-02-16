@@ -46,7 +46,7 @@ stage('Build') {
 ```xml
 stage('Static code analysis') {
             steps {
-        withSonarQubeEnv('Sonarqube') {
+        withSonarQubeEnv('Sonarqube-8.9.10') {
                     sh  "mvn sonar:sonar"
                 }
                 }
