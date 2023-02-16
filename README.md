@@ -27,19 +27,31 @@ Branch : static-code-analysis-jenkinsfile
 ### Step 4: Write the Jenkinsfile
   + ### Step 4.1: Clone the repository 
 ```xml
-stage('Clone') {
-            steps {
-                git branch: 'static-code-analysis-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
-            }
-        }
+stage('Clone the repository'){
+        steps{
+          git branch: 'deploy-to-eks-jfrog-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+          
+        } 
+      }
 ```
-  + ### Step 9.2: Build the code
+  + ### Step 4.2: Build the code
 ```xml
 stage('Build') {
             steps {
                 sh 'mvn clean install'
             }
         }
+```
++ ### Step 4.3: Static code analysis
+```xml
+stage('Static code analysis') {
+            steps {
+        withSonarQubeEnv('Sonarqube') {
+                    sh  "mvn sonar:sonar"
+                }
+                }
+                
+            }
 ```
      
 ### Step 5: Verify whether SonarQube report is generated or not in SonarQube Dashboard.
