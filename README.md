@@ -52,16 +52,20 @@ stage('Build') {
 ```
   + ### 6.3: Push the artifacts to jfrog repository
 ```xml
-stage('Deploy') {
+ stage('Push the artifacts into Jfrog artifactory') {
             steps {
-                withArtifactory(credentialsId: 'artifactory_credentials', 
-                                serverId: 'your_artifactory_server',
-                                deployer: mavenDeployer(deployerId: 'artifactory_deployer', 
-                                                        releaseRepo: 'your_release_repo', 
-                                                        snapshotRepo: 'your_snapshot_repo')) {
-                                                            sh 'mvn deploy'
-                                                        }
-            }
+              rtUpload (
+                serverId: 'Jfrog-dev-server',
+                spec: '''{
+                      "files": [
+                        {
+                          "pattern": "*.war",
+                           "target": "web-application/"
+                        }
+                    ]
+                }'''
+              )
+          }
         }
   
 ```
