@@ -36,9 +36,11 @@ Branch : build-and-push-to-jfrog-jenkinsfile
 ### Step 6: Write the Jenkinsfile
   + ### Step 6.1: Clone the repository 
 ```xml
-stage('Clone') {
+stage('Clone the Repository ') {
             steps {
-                git branch: 'build-and-push-to-jfrog-jenkinsfile', url: 'https://github.com/techworldwithmurali/java-application.git'
+               git branch: 'build-and-push-to-jfrog-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+               
+               
             }
         }
 ```
