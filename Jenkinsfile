@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Clone the repo from github') {
             steps {
-                git branch: 'pushing-docker-image-to-dockerhub-jenkinsfile', credentialsId: 'github-jenkins', url: 'https://github.com/madinenitejaswini/java-application.git'
+                git branch: 'pushing-docker-image-to-dockerhub-jenkinsfile', credentialsId: 'github_credentials', url: 'https://github.com/madinenitejaswini/java-application.git'
             }
         }
         stage('Build the code') {
