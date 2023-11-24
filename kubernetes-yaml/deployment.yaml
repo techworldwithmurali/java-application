@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: fly-b3047:1
+        image: prawin7/fly-b3047:20
         ports:
         - containerPort: 8080
