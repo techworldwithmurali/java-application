@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: fly-b3047
   labels:
-    app: web-app
+    app: fly-b3047
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web-app
+      app: fly-b3047
   template:
     metadata:
       labels:
-        app: web-app
+        app: fly-b3047
     spec:
       containers:
       - name: web-application
