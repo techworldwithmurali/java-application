@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: mob-app
   labels:
-    app: web-app
+    app: mob-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web-app
+      app: mob-app
   template:
     metadata:
       labels:
-        app: web-app
+        app: mob-app
     spec:
       containers:
       - name: fly-b3047
