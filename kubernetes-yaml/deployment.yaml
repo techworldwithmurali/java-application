@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: mob-app
   labels:
     app: web-app
 spec:
