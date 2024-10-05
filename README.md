@@ -29,7 +29,7 @@ Branch : static-code-analysis-jenkinsfile
 ```xml
 stage('Clone the repository'){
         steps{
-          git branch: 'deploy-to-eks-jfrog-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
+          git branch: 'static-code-analysis-jenkinsfile', credentialsId: 'Github_credentails', url: 'https://github.com/techworldwithmurali/java-application.git'
           
         } 
       }
