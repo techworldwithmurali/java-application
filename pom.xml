@@ -18,5 +18,4 @@
   <build>
     <finalName>web-application</finalName>
   </build>
-    </distributionManagement>
 </project>
